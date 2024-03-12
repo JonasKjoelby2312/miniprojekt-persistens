@@ -2,6 +2,8 @@ package db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import model.Employee;
@@ -10,32 +12,65 @@ public class EmployeeDB implements EmployeeDAO {
 	
 	private static final String FIND_ALL_Q = "select name, company_position, salary from employee";
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where id = ?";
+	private static final String UPDATE_Q = "update employee set name = ?, company_position = ?, salary = ?";
 	private PreparedStatement findAllPS;
 	private PreparedStatement findByIdPS;
+	private PreparedStatement updatePS;
 	
 	public EmployeeDB() throws Exception {
-		Connection con = new Conncetion();
-		findAllPS = con.prepareStatement(FIND_ALL_Q);
-		findByIdPS = con.prepareStatement(FIND_ALL_Q);
+		Connection con = new Connection();
+		try {
+			findAllPS = con.prepareStatement(FIND_ALL_Q);
+			findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
+			updatePS = con.prepareStatement(UPDATE_Q);
+		} catch (SQLException e) {
+			throw new Exception("Could not prepare qurey", e);
+		}
 	}
 
 	@Override
 	public List<Employee> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet rs;
+		try {
+			rs = findAllPS.executeQuery();
+			List<Employee> res = buildObject(rs);
+			return res;
+		} catch(SQLException e) {
+			throw new Exception("Could not retrive all employees", e);
+		}
+		
 	}
 
 	@Override
 	public Employee findById(int id, boolean fullAssociation) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet rs;
+		try {
+			rs = findByIdPS.executeQuery();
+			Employee e = null;
+			if(rs.next()) {
+				e = buildObject(rs);
+			}
+			return null;
+		} catch(SQLException e) {
+			throw new Exception("Could not find employee by ID", e);
+		}
+		
 	}
 
 
 	@Override
-	public void update(Employee e) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void update(Employee emp) throws Exception {
+		final String name = emp.getName();
+		final String companyPosition = emp.getCompanyPosition();
+		final int salary = emp.getSalary();
+		try {
+			updatePS.setString(1, companyPosition);
+			updatePS.setString(2, companyPosition);
+			updatePS.setInt(3, salary);
+		} catch(SQLException e) {
+			throw new Exception("Could not update employee on: " + emp, e );
+			
+		}
 	}
-
 }
+		
