@@ -6,6 +6,7 @@ public class Price {
 	private LocalDate startDate;
 	private double value;
 	private PriceType type;
+	
 	public Price(LocalDate startDate, double value, PriceType type) {
 		super();
 		this.startDate = startDate;

@@ -99,6 +99,7 @@ public class SaleOrder {
 	@Override
 	public String toString() {
 		return "SaleOrder [date=" + date + ", amount=" + amount + ", deliveryStatus=" + deliveryStatus
-				+ ", deliveryDate=" + deliveryDate + ", freight=" + freight + "]";
+				+ ", deliveryDate=" + deliveryDate + ", freight=" + freight + ", saleOrderLines=" + saleOrderLines
+				+ ", invoices=" + invoices + "]";
 	}
 }

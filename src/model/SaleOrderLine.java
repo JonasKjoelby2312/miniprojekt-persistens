@@ -39,6 +39,6 @@ public class SaleOrderLine {
 
 	@Override
 	public String toString() {
-		return "SaleOrderLine [quantity=" + quantity + ", unitPrice=" + unitPrice + "]";
+		return "SaleOrderLine [quantity=" + quantity + ", unitPrice=" + unitPrice + ", product=" + product + "]";
 	}
 }
