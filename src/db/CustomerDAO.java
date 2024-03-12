@@ -1,5 +1,5 @@
 package db;
 
-public class CustomerDAO {
+public interface CustomerDAO {
 
 }
