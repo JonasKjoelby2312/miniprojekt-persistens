@@ -1,13 +1,13 @@
 package model;
 
 public class Employee {
-	
+
 	private String name;
 	private String companyPosition;
 	private int salary;
-	
-	
-	
+
+
+
 	public Employee(String name, String companyPosition, int salary) {
 		this.name = name;
 		this.companyPosition = companyPosition;
