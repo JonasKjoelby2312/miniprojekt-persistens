@@ -8,6 +8,6 @@ public interface EmployeeDAO {
 
 	List<Employee> findAll() throws Exception;
 	Employee findById(int id, boolean fullAssociation) throws Exception;
-	void update(Employee e) throws Exception;
+	void updateEmployee(Employee e) throws Exception;
 
 }

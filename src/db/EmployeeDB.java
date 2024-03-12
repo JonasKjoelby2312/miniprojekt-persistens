@@ -18,7 +18,7 @@ public class EmployeeDB implements EmployeeDAO {
 	private PreparedStatement updatePS;
 	
 	public EmployeeDB() throws Exception {
-		Connection con = new Connection();
+		Connection con = DBConnection.getInstance().getConnection();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
@@ -59,7 +59,7 @@ public class EmployeeDB implements EmployeeDAO {
 
 
 	@Override
-	public void update(Employee emp) throws Exception {
+	public void updateEmployee(Employee emp) throws Exception {
 		final String name = emp.getName();
 		final String companyPosition = emp.getCompanyPosition();
 		final int salary = emp.getSalary();
