@@ -3,16 +3,17 @@ package model;
 public class Product {
 
 	private String name;
-	private price purchasePrice;
-	private price salesPrice;
+	private Price purchasePrice;
+	private Price salesPrice;
 	private String countryOfOrigin;
 	private int minStock;
 	private int maxStock;
 	private int currentStock;
 	private String location;
+	private Supplier supplier;
 
-	public void product(String name, price pruchasePrice, price salesPrice, String countryOfOrigin, int minStock,
-			int maxStock, int currentStock, String location) {
+	public void product(String name, Price purchasePrice, Price salesPrice, String countryOfOrigin, int minStock,
+			int maxStock, int currentStock, String location, Supplier supplier) {
 		this.name = name;
 		this.purchasePrice = purchasePrice;
 		this.salesPrice = salesPrice;
@@ -21,6 +22,7 @@ public class Product {
 		this.maxStock = maxStock;
 		this.currentStock = currentStock;
 		this.location = location;
+		this.supplier = supplier;
 	}
 
 	public String getName() {
@@ -31,19 +33,19 @@ public class Product {
 		this.name = name;
 	}
 
-	public price getPurchasePrice() {
+	public Price getPurchasePrice() {
 		return purchasePrice;
 	}
 
-	public void setPurchasePrice(price purchasePrice) {
+	public void setPurchasePrice(Price purchasePrice) {
 		this.purchasePrice = purchasePrice;
 	}
 
-	public price getSalesPrice() {
+	public Price getSalesPrice() {
 		return salesPrice;
 	}
 
-	public void setSalesPrice(price salesPrice) {
+	public void setSalesPrice(Price salesPrice) {
 		this.salesPrice = salesPrice;
 	}
 
@@ -87,10 +89,18 @@ public class Product {
 		this.location = location;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [name=" + name + ", countryOfOrigin=" + countryOfOrigin + ", minStock=" + minStock
-				+ ", maxStock=" + maxStock + ", currentStock=" + currentStock + ", location=" + location + "]";
+	public Supplier getSupplier() {
+		return supplier;
 	}
 
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [name=" + name + ", purchasePrice=" + purchasePrice + ", salesPrice=" + salesPrice
+				+ ", countryOfOrigin=" + countryOfOrigin + ", minStock=" + minStock + ", maxStock=" + maxStock
+				+ ", currentStock=" + currentStock + ", location=" + location + ", supplier=" + supplier + "]";
+	}
 }
