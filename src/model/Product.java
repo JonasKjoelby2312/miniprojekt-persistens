@@ -12,8 +12,9 @@ public class Product {
 	private String location;
 	private Supplier supplier;
 
-	public void product(String name, Price purchasePrice, Price salesPrice, String countryOfOrigin, int minStock,
+	public Product(String name, Price purchasePrice, Price salesPrice, String countryOfOrigin, int minStock,
 			int maxStock, int currentStock, String location, Supplier supplier) {
+		super(); 
 		this.name = name;
 		this.purchasePrice = purchasePrice;
 		this.salesPrice = salesPrice;
