@@ -5,11 +5,11 @@ public class SaleOrderLine {
 	private double unitPrice;
 	private Product product;
 	
-	public SaleOrderLine(int quantity, double unitPrice, Product product) {
+	public SaleOrderLine(Product product, int quantity) {
 		super();
-		this.quantity = quantity;
-		this.unitPrice = unitPrice;
 		this.product = product;
+		this.quantity = quantity;
+		unitPrice = product.getLatestSalesPrice().getValue();
 	}
 
 	public int getQuantity() {

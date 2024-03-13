@@ -36,19 +36,19 @@ public class CustomerDB implements CustomerDAO {
 		List<Customer> res = new ArrayList<>();
 		try {
 			ResultSet rs = findAllPS.executeQuery();
-			res = buildObjects(rs);
+			res = buildObjects(rs, false);
 		} catch (SQLException e) {
 			throw new Exception("Could not find customers", e);
 		}
 		return res;
 	}
 
-	private List<Customer> buildObjects(ResultSet rs) throws SQLException {
+	private List<Customer> buildObjects(ResultSet rs, boolean fullAssociation) throws SQLException {
 		ArrayList<Customer> res = new ArrayList<>();
-		Customer c = buildObject(rs);
+		Customer c = buildObject(rs, false);
 		while (c != null) {
 			res.add(c);
-			c = buildObject(rs);
+			c = buildObject(rs, false);
 		}
 		return res;
 	}
@@ -61,7 +61,7 @@ public class CustomerDB implements CustomerDAO {
 		try {
 			findByPhonePS.setString(1, phone);
 			ResultSet rs = findByPhonePS.executeQuery();
-			res = buildObject(rs);
+			res = buildObject(rs, false);
 		} catch (SQLException e) {
 			throw new Exception("Could not find by phone", e);
 		}
@@ -69,7 +69,7 @@ public class CustomerDB implements CustomerDAO {
 		return res;
 	}
 
-	private Customer buildObject(ResultSet rs) throws SQLException {
+	private Customer buildObject(ResultSet rs, boolean fullAssociation) throws SQLException {
 		Customer c = null;
 		if (rs.next()) {
 			if (rs.getString("cvr") == null) {
@@ -101,7 +101,7 @@ public class CustomerDB implements CustomerDAO {
 			updatePS.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new Exception("Could not update person", e);
+			throw new Exception("Could not update customer", e);
 		}
 		
 		

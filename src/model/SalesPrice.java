@@ -24,9 +24,11 @@ public class SalesPrice {
 	public void setValue(double value) {
 		this.value = value;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Price [startDate=" + startDate + ", value=" + value + ", type=" + type + "]";
+		return "SalesPrice [startDate=" + startDate + ", value=" + value + "]";
 	}
+	
+	
 }

@@ -1,22 +1,26 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Product {
 
 	private String name;
 	private double purchasePrice;
-	private SalesPrice salesPrice;
+	private List<SalesPrice> salesPrices;
 	private String countryOfOrigin;
 	private Supplier supplier;
-	private Stock stock; 
+	private Stock stock;
 
 	public Product(String name, double purchasePrice, SalesPrice salesPrice, String countryOfOrigin, Supplier supplier, Stock stock) {
 		super(); 
 		this.name = name;
 		this.purchasePrice = purchasePrice;
-		this.salesPrice = salesPrice;
 		this.countryOfOrigin = countryOfOrigin;
 		this.supplier = supplier;
 		this.stock = stock; 
+		salesPrices = new ArrayList<SalesPrice>();
+		addSalesPrice(salesPrice);
 	}
 
 	public String getName() {
@@ -35,12 +39,21 @@ public class Product {
 		this.purchasePrice = purchasePrice;
 	}
 
-	public SalesPrice getSalesPrice() {
-		return salesPrice;
+	public List<SalesPrice> getSalesPrices() {
+		return new ArrayList<>(salesPrices);
+	}
+	
+	public SalesPrice getLatestSalesPrice() {
+		return salesPrices.get(salesPrices.size() - 1);
 	}
 
-	public void setSalesPrice(SalesPrice salesPrice) {
-		this.salesPrice = salesPrice;
+	public boolean addSalesPrice(SalesPrice price) {
+		boolean res = false;
+		if(price != null) {
+			salesPrices.add(price);
+			res = true;
+		}
+		return res;
 	}
 
 	public String getCountryOfOrigin() {
