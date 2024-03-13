@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaleOrder {
-	private int orderNo;
 	private LocalDate date;
 	private Employee employee;
 	private Customer customer;

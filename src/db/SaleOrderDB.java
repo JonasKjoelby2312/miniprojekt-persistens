@@ -1,19 +1,21 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.DeliveryStatus;
 import model.SaleOrder;
 
 public class SaleOrderDB implements SaleOrderDAO {
-	private static final String FIND_ALL_Q = "select date, amount, delivery_status, delivery_status, freight, c_id, e_id, i_id, sol_id";
-	private static final String FIND_SALE_ORDER_BY_NO_Q = FIND_ALL_Q + " where sale_order_id = ?";
-	private static final String UPDATE_Q = "update sale_order set date = ?, amount = ?, delivery_status = ?, delivery_status = ?, freight = ?, c_id = ?, e_id = ?, i_id = ?, sol_id = ? ";
-	private static final String INSERT_SALE_ORDER_Q = "?";
+	private static final String FIND_ALL_Q = "select date, amount, delivery_status, delivery_date, freight, c_id, e_id, sol_id from SaleOrder";
+	private static final String FIND_SALE_ORDER_BY_ID_Q = FIND_ALL_Q + " where sale_order_id = ?";
+	//private static final String UPDATE_Q = "update sale_order set date = ?, amount = ?, delivery_status = ?, delivery_status = ?, freight = ?, c_id = ?, e_id = ?, i_id = ?, sol_id = ? ";
+	private static final String INSERT_SALE_ORDER_Q = "insert into SaleOrder values(?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private PreparedStatement findAllPS, findSaleOrderByIdPS, updatePS, insertSaleOrderPS;
 	
@@ -23,7 +25,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findSaleOrderByIdPS = con.prepareStatement(FIND_ALL_Q);
-			updatePS = con.prepareStatement(UPDATE_Q);
+			//updatePS = con.prepareStatement(UPDATE_Q);
 			insertSaleOrderPS = con.prepareStatement(INSERT_SALE_ORDER_Q);
 		} catch (SQLException e) {
 			
@@ -32,52 +34,85 @@ public class SaleOrderDB implements SaleOrderDAO {
 	}
 	@Override
 	public List<SaleOrder> findAllSaleOrders() throws Exception {
-		ResultSet rs;
-		try {
-			rs = findAllPS.executeQuery();
-			List<SaleOrder> res = buildObjects(rs);
-			return res;
-		} catch (SQLException e) {
-			
-		}
-		
-	}
-
-	private List<SaleOrder> buildObjects(ResultSet rs) throws SQLException {
 		List<SaleOrder> res = new ArrayList<>();
-		while(rs.next()) {
-			res.add(buildObject(rs));
+		try {
+			ResultSet rs = findAllPS.executeQuery();
+			res = buildObjects(rs);
+		} catch (SQLException e) {
+			throw new Exception("Could not find SaleOrders", e);
 		}
 		return res;
 	}
-	private SaleOrder buildObject(ResultSet rs) {
-		SaleOrder so = new SaleOrder(
-				rs.getDate("date"),
-				rs.getInt("amount"),
-				switch(rs.getString("delivery_status"))
-					
-					
-				
-				rs.getDate("delivery_date").toLocalDate(),
-				rs.getDouble("freight"));
-		return null;
-	}
+	
 	@Override
-	public SaleOrder findSaleOrderById(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public SaleOrder findSaleOrderByID(int id) throws Exception {
+		SaleOrder res = null;
+		findSaleOrderByIdPS.setInt(1, id);
+		try {
+			ResultSet rs = findSaleOrderByIdPS.executeQuery();
+			res = buildObject(rs);
+		} catch (Exception e) {
+			throw new Exception("Could not find SaleOrder by ID: " + id, e);
+		}
+		return res;
 	}
 
-	@Override
-	public void updateSaleOrder(SaleOrder so) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	//@Override
+	//public void updateSaleOrder(SaleOrder so) throws Exception {
+	//	// TODO Auto-generated method stub
+	//	
+	//}
 
 	@Override
 	public boolean insertSaleOrder(SaleOrder so) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = false;
+		try {
+			insertSaleOrderPS.setDate(1, Date.valueOf(so.getDate()));
+			insertSaleOrderPS.setDouble(2, so.getAmount());
+			insertSaleOrderPS.setString(3, so.getDeliveryStatus().toString());
+			insertSaleOrderPS.setDate(4, Date.valueOf(so.getDeliveryDate()));
+			insertSaleOrderPS.setDouble(5, so.getFreight());
+			insertSaleOrderPS.setInt(6, so.getCustomer().getId()); //!Kritisk
+			insertSaleOrderPS.setInt(7, so.getEmployee().getID()); //!Kritisk
+			
+			insertSaleOrderPS.executeUpdate();
+			res = true;
+		} catch (Exception e) {
+			throw new Exception("Could not insert SaleOrder in DB");
+		}
+		
+		return res; //Skal den altid return true, også ingenting når den får fejl?
 	}
-
+	
+	private List<SaleOrder> buildObjects(ResultSet rs) throws Exception {
+		List<SaleOrder> res = new ArrayList<>();
+		SaleOrder so = buildObject(rs);
+		while(so != null) {
+			res.add(so);
+			so = buildObject(rs);
+		}
+		return res;
+	}
+	
+	private SaleOrder buildObject(ResultSet rs) throws Exception{
+		SaleOrder res = null;
+		
+		try {
+			if(rs.next()) {
+				res = new SaleOrder(
+						employeeDB.findEmployeeByID(rs.getInt("e_id")), //!Kritisk
+						customerDB.findEmployeeByID(rs.getInt("c_id")) //!Kritisk
+						);
+				
+				res.setDate(rs.getDate("date").toLocalDate());
+				res.setAmount(rs.getDouble("amount"));
+				res.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
+				res.setDeliveryDate(rs.getDate("delivery_date").toLocalDate());
+				res.setFreight(rs.getDouble("freight"));
+			}
+		} catch (Exception e) {
+			throw new Exception("Could not build object", e);
+		}
+		return res;
+	}
 }

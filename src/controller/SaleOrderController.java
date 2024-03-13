@@ -20,7 +20,7 @@ public class SaleOrderController {
 	private SaleOrderDAO saleOrderDB;
 	private SaleOrder currentSaleOrder;
 	
-	public SaleOrderController() {
+	public SaleOrderController() throws Exception {
 		pCtrl = new ProductController();
 		cCtrl = new CustomerController();
 		eCtrl = new EmployeeController();
@@ -61,11 +61,11 @@ public class SaleOrderController {
 		return res;
 	}
 	
-	public List<SaleOrder> findAllSaleOrders() {
-		return saleOrderDB.findAllSaleOrders();;
+	public List<SaleOrder> findAllSaleOrders() throws Exception {
+		return saleOrderDB.findAllSaleOrders();
 	}
 	
-	public SaleOrder findSaleOrderByID(int id) {
+	public SaleOrder findSaleOrderByID(int id) throws Exception {
 		SaleOrder res = null;
 		res = saleOrderDB.findSaleOrderByID(id);
 		return res;
