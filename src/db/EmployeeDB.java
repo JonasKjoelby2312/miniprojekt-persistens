@@ -37,7 +37,7 @@ public class EmployeeDB implements EmployeeDAO {
 		ResultSet rs;
 		try {
 			rs = findAllPS.executeQuery();
-			List<Employee> res = buildObjects(rs);
+			List<Employee> res = buildObjects(rs, false);
 			return res;
 		} catch(SQLException e) {
 			throw new Exception("Could not retrive all employees", e);
@@ -52,7 +52,7 @@ public class EmployeeDB implements EmployeeDAO {
 			rs = findByIdPS.executeQuery();
 			Employee e = null;
 			if(rs.next()) {
-				e = buildObject(rs);
+				e = buildObject(rs, false);
 			}
 			return null;
 		} catch(SQLException e) {
@@ -77,7 +77,7 @@ public class EmployeeDB implements EmployeeDAO {
 		}
 	}
 	
-	private Employee buildObject(ResultSet rs) throws SQLException {
+	private Employee buildObject(ResultSet rs, boolean fullAssociation) throws SQLException {
 		Employee e = new Employee(
 				rs.getString("name"),
 				rs.getString("company_position"),
@@ -86,10 +86,10 @@ public class EmployeeDB implements EmployeeDAO {
 	}
 	
 	
-	private List<Employee> buildObjects(ResultSet rs) throws SQLException {
+	private List<Employee> buildObjects(ResultSet rs, boolean fullAssociation) throws SQLException {
 		List<Employee> res = new ArrayList<>();
 		while(rs.next()) {
-			res.add(buildObject(rs));
+			res.add(buildObject(rs, false));
 		}
 		return res;
 	}
