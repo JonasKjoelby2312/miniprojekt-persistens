@@ -11,6 +11,7 @@ import model.DeliveryStatus;
 import model.Employee;
 import model.Product;
 import model.SaleOrder;
+import model.SaleOrderLine;
 
 public class SaleOrderController {
 	private ProductController pCtrl;
@@ -37,12 +38,27 @@ public class SaleOrderController {
 	public boolean addProduct(int productID, int quantity) {
 		boolean res = false;
 		Product p = pCtrl.findProductByID(productID);
-		currentSaleOrder.addSaleOrderLine(new SaleOrderLine(p, quantity));
+		if(p != null) {
+			currentSaleOrder.addSaleOrderLine(new SaleOrderLine(p, quantity));
+			res = true;
+		}
 		return res;
 	}
 	
 	public boolean completeOrder() {
-		
+		boolean res = false;
+		currentSaleOrder.setDate(LocalDate.now());
+		currentSaleOrder.setDeliveryDate(LocalDate.now().plusMonths(1));
+		currentSaleOrder.setDeliveryStatus(DeliveryStatus.ONGOING);
+		currentSaleOrder.setAmount(currentSaleOrder.calculateTotal());
+		if(currentSaleOrder.getCustomer() instanceof Customer) {
+			currentSaleOrder.setFreight(45d);
+		} else {
+			currentSaleOrder.setFreight(0d);
+		}
+		currentSaleOrder = null;
+		res = true;
+		return res;
 	}
 	
 	public List<SaleOrder> findAllSaleOrders() {
@@ -55,8 +71,8 @@ public class SaleOrderController {
 		return res;
 	}
 	
-	public void updateSaleOrder(LocalDate date, double amount, DeliveryStatus deliveryStatus, LocalDate deliveryDate, double freight) {
-		SaleOrder so = new SaleOrder(date, amount, deliveryStatus, deliveryDate, freight);
-		saleOrderDB.updateSaleOrder(so);
-	}
+	//public void updateSaleOrder(LocalDate date, double amount, DeliveryStatus deliveryStatus, LocalDate deliveryDate, double freight) {
+	//	SaleOrder so = new SaleOrder(date, amount, deliveryStatus, deliveryDate, freight);
+	//	saleOrderDB.updateSaleOrder(so);
+	//}
 }

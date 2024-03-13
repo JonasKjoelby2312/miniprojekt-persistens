@@ -23,21 +23,28 @@ public class SaleOrder {
 		invoices = new ArrayList<>();
 	}
 	
-	public void setVariables(LocalDate date, DeliveryStatus deliveryStatus, LocalDate deliveryDate,
-			double freight) {
-		this.date = date;
-		this.deliveryStatus = deliveryStatus;
-		this.deliveryDate = deliveryDate;
-		this.freight = freight;
-		amount = calculateTotal();
-	}
-	
 	public double calculateTotal() {
 		double res = 0d;
 		for(SaleOrderLine sol : saleOrderLines) {
 			res += sol.getUnitPrice() * sol.getQuantity();
 		}
 		return res;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public LocalDate getDate() {
