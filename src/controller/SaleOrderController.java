@@ -27,7 +27,7 @@ public class SaleOrderController {
 		saleOrderDB = new SaleOrderDB();
 	}
 	
-	public SaleOrder registerOrder(int employeeID, String customerPhone) {
+	public SaleOrder registerOrder(int employeeID, String customerPhone) throws Exception {
 		SaleOrder res = null;
 		Employee e = eCtrl.findEmployeeByID(employeeID);
 		Customer c = cCtrl.findCustomerByPhone(customerPhone);
@@ -35,7 +35,7 @@ public class SaleOrderController {
 		return currentSaleOrder;
 	}
 	
-	public boolean addProduct(int productID, int quantity) {
+	public boolean addProduct(int productID, int quantity) throws Exception {
 		boolean res = false;
 		Product p = pCtrl.findProductByID(productID);
 		if(p != null) {
