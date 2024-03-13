@@ -4,9 +4,9 @@ public class Equipment extends Product {
 	private String type;
 	private String description;
 
-	public Equipment(String name, Price purchasePrice, Price salesPrice, String countryOfOrigin, int minStock,
-			int maxStock, int currentStock, String location, Supplier supplier, String type, String description) {
-		super(name, purchasePrice, salesPrice, countryOfOrigin, minStock, maxStock, currentStock, location, supplier);
+	public Equipment(String name, double purchasePrice, SalesPrice salesPrice, String countryOfOrigin,
+			Supplier supplier, Stock stock, String type, String description) {
+		super(name, purchasePrice, salesPrice, countryOfOrigin, supplier, stock);
 		this.type = type;
 		this.description = description;
 	}

@@ -3,27 +3,20 @@ package model;
 public class Product {
 
 	private String name;
-	private Price purchasePrice;
-	private Price salesPrice;
+	private double purchasePrice;
+	private SalesPrice salesPrice;
 	private String countryOfOrigin;
-	private int minStock;
-	private int maxStock;
-	private int currentStock;
-	private String location;
 	private Supplier supplier;
+	private Stock stock; 
 
-	public Product(String name, Price purchasePrice, Price salesPrice, String countryOfOrigin, int minStock,
-			int maxStock, int currentStock, String location, Supplier supplier) {
+	public Product(String name, double purchasePrice, SalesPrice salesPrice, String countryOfOrigin, Supplier supplier, Stock stock) {
 		super(); 
 		this.name = name;
 		this.purchasePrice = purchasePrice;
 		this.salesPrice = salesPrice;
 		this.countryOfOrigin = countryOfOrigin;
-		this.minStock = minStock;
-		this.maxStock = maxStock;
-		this.currentStock = currentStock;
-		this.location = location;
 		this.supplier = supplier;
+		this.stock = stock; 
 	}
 
 	public String getName() {
@@ -34,19 +27,19 @@ public class Product {
 		this.name = name;
 	}
 
-	public Price getPurchasePrice() {
+	public double getPurchasePrice() {
 		return purchasePrice;
 	}
 
-	public void setPurchasePrice(Price purchasePrice) {
+	public void setPurchasePrice(double purchasePrice) {
 		this.purchasePrice = purchasePrice;
 	}
 
-	public Price getSalesPrice() {
+	public SalesPrice getSalesPrice() {
 		return salesPrice;
 	}
 
-	public void setSalesPrice(Price salesPrice) {
+	public void setSalesPrice(SalesPrice salesPrice) {
 		this.salesPrice = salesPrice;
 	}
 
@@ -58,38 +51,6 @@ public class Product {
 		this.countryOfOrigin = countryOfOrigin;
 	}
 
-	public int getMinStock() {
-		return minStock;
-	}
-
-	public void setMinStock(int minStock) {
-		this.minStock = minStock;
-	}
-
-	public int getMaxStock() {
-		return maxStock;
-	}
-
-	public void setMaxStock(int maxStock) {
-		this.maxStock = maxStock;
-	}
-
-	public int getCurrentStock() {
-		return currentStock;
-	}
-
-	public void setCurrentStock(int currentStock) {
-		this.currentStock = currentStock;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	public Supplier getSupplier() {
 		return supplier;
 	}
@@ -98,10 +59,21 @@ public class Product {
 		this.supplier = supplier;
 	}
 
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [name=" + name + ", purchasePrice=" + purchasePrice + ", salesPrice=" + salesPrice
-				+ ", countryOfOrigin=" + countryOfOrigin + ", minStock=" + minStock + ", maxStock=" + maxStock
-				+ ", currentStock=" + currentStock + ", location=" + location + ", supplier=" + supplier + "]";
+		return "Product [name=" + name + ", purchasePrice=" + purchasePrice + ", countryOfOrigin=" + countryOfOrigin
+				+ ", supplier=" + supplier + "]";
 	}
+
+	
 }
+
+	
