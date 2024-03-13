@@ -3,7 +3,7 @@ package model;
 public class Club extends Customer {
 	private String cvr;
 
-	public Club(String name, String address, int zipcode, String city, String phoneNo, String email) {
+	public Club(String name, String address, int zipcode, String city, String phoneNo, String email, String cvr) {
 		super(name, address, zipcode, city, phoneNo, email);
 		this.cvr = cvr;
 	}
