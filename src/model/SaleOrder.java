@@ -6,21 +6,37 @@ import java.util.List;
 
 public class SaleOrder {
 	private LocalDate date;
-	private Double amount;
+	private Employee employee;
+	private Customer customer;
+	private double amount;
 	private DeliveryStatus deliveryStatus;
 	private LocalDate deliveryDate;
 	private double freight;
 	private List<SaleOrderLine> saleOrderLines;
 	private List<Invoice> invoices;
 	
-	public SaleOrder(LocalDate date, Double amount, DeliveryStatus deliveryStatus, LocalDate deliveryDate,
+	public SaleOrder(Employee e, Customer c) {
+		employee = e;
+		customer = c;
+		saleOrderLines = new ArrayList<>();
+		invoices = new ArrayList<>();
+	}
+	
+	public void setVariables(LocalDate date, DeliveryStatus deliveryStatus, LocalDate deliveryDate,
 			double freight) {
-		super();
 		this.date = date;
-		this.amount = amount;
 		this.deliveryStatus = deliveryStatus;
 		this.deliveryDate = deliveryDate;
 		this.freight = freight;
+		amount = calculateTotal();
+	}
+	
+	public double calculateTotal() {
+		double res = 0d;
+		for(SaleOrderLine sol : saleOrderLines) {
+			res += sol.getUnitPrice() * sol.getQuantity();
+		}
+		return res;
 	}
 
 	public LocalDate getDate() {
@@ -31,11 +47,11 @@ public class SaleOrder {
 		this.date = date;
 	}
 
-	public Double getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Double amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
@@ -68,7 +84,7 @@ public class SaleOrder {
 		return new ArrayList<>(saleOrderLines);
 	}
 
-	public void addSaleOrderLine(SaleOrderLine sol) {
+	public void addSaleOrderLine(SaleOrderLine sol) {//dkd
 		if(sol != null) {
 			saleOrderLines.add(sol);
 		}
