@@ -36,7 +36,7 @@ public class EmployeeDB implements EmployeeDAO {
 		ResultSet rs;
 		try {
 			rs = findAllPS.executeQuery();
-			List<Employee> res = buildObject(rs);
+			List<Employee> res = buildObjects(rs);
 			return res;
 		} catch(SQLException e) {
 			throw new Exception("Could not retrive all employees", e);
