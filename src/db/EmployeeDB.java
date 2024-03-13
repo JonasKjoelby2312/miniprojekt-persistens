@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Employee;
@@ -36,7 +37,7 @@ public class EmployeeDB implements EmployeeDAO {
 		ResultSet rs;
 		try {
 			rs = findAllPS.executeQuery();
-			List<Employee> res = buildObject(rs);
+			List<Employee> res = buildObjects(rs);
 			return res;
 		} catch(SQLException e) {
 			throw new Exception("Could not retrive all employees", e);
@@ -74,6 +75,23 @@ public class EmployeeDB implements EmployeeDAO {
 			throw new Exception("Could not update employee on: " + emp, e );
 			
 		}
+	}
+	
+	private Employee buildObject(ResultSet rs) throws SQLException {
+		Employee e = new Employee(
+				rs.getString("name"),
+				rs.getString("company_position"),
+				rs.getInt("salary"));
+		return e;
+	}
+	
+	
+	private List<Employee> buildObjects(ResultSet rs) throws SQLException {
+		List<Employee> res = new ArrayList<>();
+		while(rs.next()) {
+			res.add(buildObject(rs));
+		}
+		return res;
 	}
 }
 		
