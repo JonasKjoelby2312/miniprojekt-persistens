@@ -18,6 +18,7 @@ public class EmployeeDB implements EmployeeDAO {
 	private PreparedStatement updatePS;
 	
 	public EmployeeDB() throws Exception {
+
 		Connection con = DBConnection.getInstance().getConnection();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
@@ -26,6 +27,8 @@ public class EmployeeDB implements EmployeeDAO {
 		} catch (SQLException e) {
 			throw new Exception("Could not prepare qurey", e);
 		}
+
+
 	}
 
 	@Override
