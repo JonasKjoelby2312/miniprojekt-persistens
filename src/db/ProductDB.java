@@ -13,19 +13,19 @@ import model.Product;
 public class ProductDB implements ProductDAO {
 
 	private static final String FIND_ALL_Q = "select id, name, purchasePrice, salesPrice, countryOfOrgin, minStock, maxStock, currentStock, location, supplier from Product";
-	private static final String FIND_BY_PHONE_Q = FIND_ALL_Q + " where product_id = ?";
+	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where product_id = ?";
 	// HJÆLP AF ISTVAN ift where phone skal kodes og skrives i eclipse
-	private static final String UPDATE_Q = "update products set name = ?, purchasePrice = ?, salesPrice = ?, countryOfOrgin = ?, minStock = ?, maxStock = ?, currentStock = ?, location = ?, supplier = ?, where product_id = ?";
+	//private static final String UPDATE_Q = "update products set name = ?, purchasePrice = ?, salesPrice = ?, countryOfOrgin = ?, minStock = ?, maxStock = ?, currentStock = ?, location = ?, supplier = ?, where product_id = ?";
 	private PreparedStatement findAllPS;
-	private PreparedStatement findByPhonePS;
-	private PreparedStatement updatePS;
+	private PreparedStatement findByIDPS;
+	//private PreparedStatement updatePS;
 
-	public CustomerDB() throws Exception {
+	public ProductDB() throws Exception {
 		Connection con = DBConnection.getInstance().getConnection();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
-			findByPhonePS = con.prepareStatement(FIND_BY_PHONE_Q);
-			updatePS = con.prepareStatement(UPDATE_Q);
+			findByIDPS = con.prepareStatement(FIND_BY_ID_Q);
+			//updatePS = con.prepareStatement(UPDATE_Q);
 
 		} catch (SQLException e) {
 			throw new Exception("Cannot prepare query at the moment", e);
@@ -33,8 +33,8 @@ public class ProductDB implements ProductDAO {
 	}
 
 	@Override
-	public List<Customer> findAllCustomers() throws Exception {
-		List<Customer> res = new ArrayList<>();
+	public List<Product> findAllProducts() throws Exception {
+		List<Product> res = new ArrayList<>();
 		try {
 			ResultSet rs = findAllPS.executeQuery();
 			res = buildObjects(rs);
@@ -44,12 +44,12 @@ public class ProductDB implements ProductDAO {
 		return res;
 	}
 
-	private List<Customer> buildObjects(ResultSet rs) throws SQLException {
-		ArrayList<Customer> res = new ArrayList<>();
-		Customer c = buildObject(rs);
-		while (c != null) {
-			res.add(c);
-			c = buildObject(rs);
+	private List<Product> buildObjects(ResultSet rs) throws SQLException {
+		ArrayList<Product> res = new ArrayList<>();
+		Product p = buildObject(rs);
+		while (p != null) {
+			res.add(p);
+			p = buildObject(rs);
 		}
 		return res;
 	}
@@ -57,56 +57,47 @@ public class ProductDB implements ProductDAO {
 	
 
 	@Override
-	public Customer findByPhone(String phone) throws Exception {
-		Customer res = null;
+	public Product findProductByID(int id, boolean fullAssociation) throws Exception {
+		Product res = null;
 		try {
-			findByPhonePS.setString(1, phone);
-			ResultSet rs = findByPhonePS.executeQuery();
+			findByIDPS.setInt(1, id);
+			ResultSet rs = findByIDPS.executeQuery();
 			res = buildObject(rs);
 		} catch (SQLException e) {
-			throw new Exception("Could not find by phone", e);
+			throw new Exception("Could not find by ID", e);
 		}
 
 		return res;
 	}
+	
 
-	private Customer buildObject(ResultSet rs) throws SQLException {
-		Customer c = null;
-		if (rs.next()) {
-			if (rs.getString("cvr") == null) {
-				c = new Customer(
-						rs.getString("name"), 
-						rs.getString("address"), 
-						rs.getInt("zipcode"),
-						rs.getString("city"), 
-						rs.getString("phone_no"), 
-						rs.getString("email"));
-			} else {
-				// Spørgsmål ift club og hvordan vi bruger subklassen
-			}
-		}
-
-		return c;
+	private Product buildObject(ResultSet rs) throws SQLException {
+		Product p = new Product (			
+						rs.getString("name"),
+						rs.getDouble("purchasePrice"), 
+						rs.getDouble("salesPrice"), 
+						rs.getString("countryOfOrgin"),
+						rs.getString("supplier"), 
+						rs.getInt("stock")); 
+		return p;
 	}
 
-	@Override
-	public void updateCustomer(Customer c) throws Exception {
+//	@Override
+//	public void updateProduct(Product p) throws Exception {
+//		
+//		try {
+//			updatePS.setString(1, p.getName());
+//			updatePS.setDouble(2, p.getPurchasePrice());
+//			updatePS.setSalesPrice(3, p.getSalesPrice());
+//			updatePS.setString(4, p.getCountryOfOrigin());
+//			updatePS.setSupplier(5, p.getSupplier());
+//			updatePS.setStock(6, p.getStock());
+//			updatePS.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			throw new Exception("Could not update product", e);
+//		}
 		
-		try {
-			updatePS.setString(1, c.getName());
-			updatePS.setString(2, c.getAddress());
-			updatePS.setInt(3, c.getZipcode());
-			updatePS.setString(4, c.getCity());
-			updatePS.setString(5, c.getPhoneNo());
-			updatePS.setString(6, c.getEmail());
-			updatePS.executeUpdate();
-			
-		} catch (SQLException e) {
-			throw new Exception("Could not update person", e);
-		}
-		
-		
-
 	}
 
-	}
+	
