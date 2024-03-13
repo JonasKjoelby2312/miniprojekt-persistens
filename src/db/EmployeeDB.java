@@ -33,7 +33,7 @@ public class EmployeeDB implements EmployeeDAO {
 	}
 
 	@Override
-	public List<Employee> findAll() throws Exception {
+	public List<Employee> findAllEmployees() throws Exception {
 		ResultSet rs;
 		try {
 			rs = findAllPS.executeQuery();
@@ -46,7 +46,7 @@ public class EmployeeDB implements EmployeeDAO {
 	}
 
 	@Override
-	public Employee findById(int id, boolean fullAssociation) throws Exception {
+	public Employee findEmployeeByID(int id) throws Exception {
 		ResultSet rs;
 		try {
 			rs = findByIdPS.executeQuery();
@@ -58,24 +58,23 @@ public class EmployeeDB implements EmployeeDAO {
 		} catch(SQLException e) {
 			throw new Exception("Could not find employee by ID", e);
 		}
-		
 	}
 
 
-	@Override
-	public void updateEmployee(Employee emp) throws Exception {
-		final String name = emp.getName();
-		final String companyPosition = emp.getCompanyPosition();
-		final int salary = emp.getSalary();
-		try {
-			updatePS.setString(1, companyPosition);
-			updatePS.setString(2, companyPosition);
-			updatePS.setInt(3, salary);
-		} catch(SQLException e) {
-			throw new Exception("Could not update employee on: " + emp, e );
-			
-		}
-	}
+//	@Override
+//	public void updateEmployee(Employee emp) throws Exception {
+//		final String name = emp.getName();
+//		final String companyPosition = emp.getCompanyPosition();
+//		final int salary = emp.getSalary();
+//		try {
+//			updatePS.setString(1, companyPosition);
+//			updatePS.setString(2, companyPosition);
+//			updatePS.setInt(3, salary);
+//		} catch(SQLException e) {
+//			throw new Exception("Could not update employee on: " + emp, e );
+//			
+//		}
+//	}
 	
 	private Employee buildObject(ResultSet rs, boolean fullAssociation) throws SQLException {
 		Employee e = new Employee(

@@ -6,8 +6,8 @@ import model.Employee;
 
 public interface EmployeeDAO {
 
-	List<Employee> findAll() throws Exception;
-	Employee findById(int id, boolean fullAssociation) throws Exception;
-	void updateEmployee(Employee e) throws Exception;
+	List<Employee> findAllEmployees() throws Exception;
+	Employee findEmployeeByID(int id) throws Exception;
+	//void updateEmployee(Employee e) throws Exception;
 
 }

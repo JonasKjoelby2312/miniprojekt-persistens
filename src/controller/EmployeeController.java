@@ -7,25 +7,23 @@
 
 
 	public class EmployeeController {
-		
 		private EmployeeDAO employeeDB;
 		
 		public EmployeeController() throws Exception {
-			this.employeeDB = new EmployeeDB();
-			
+			employeeDB = new EmployeeDB();
 		}
 		
 		public List<Employee> findAllEmployees() throws Exception {
-			return employeeDB.findAll();
+			return employeeDB.findAllEmployees();
 		}
 
-		public Employee findByID(int id) throws Exception {
-			return employeeDB.findById(id);
+		public Employee findEmployeeByID(int id) throws Exception {
+			return employeeDB.findEmployeeByID(id);
 		}
 		
-		public void updateEmployee(Employee e) throws Exception {
-			employeeDB.updateEmployee(e);
-		}
+//		public void updateEmployee(Employee e) throws Exception {
+//			employeeDB.updateEmployee(e);
+//		}
 	}
 
 
