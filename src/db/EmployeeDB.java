@@ -11,7 +11,7 @@ import model.Employee;
 
 public class EmployeeDB implements EmployeeDAO {
 	
-	private static final String FIND_ALL_Q = "select name, company_position, salary from employee";
+	private static final String FIND_ALL_Q = "select employee_id, name, company_position, salary from employee";
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where id = ?";
 	private static final String UPDATE_Q = "update employee set name = ?, company_position = ?, salary = ?";
 	private PreparedStatement findAllPS;
