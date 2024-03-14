@@ -12,7 +12,7 @@ import model.Product;
 import model.SalesPrice;
 
 public class SalesPriceDB implements SalesPriceDAO {
-	private static final String FIND_ALL_Q = "select price_id, start_date, p_value, p_id from SalesPrice";
+	private static final String FIND_ALL_Q = "select price_id, start_date, p_value, p_id from sales_price";
 	private static final String FIND_ALL_BY_ID = FIND_ALL_Q + " where p_id = ?";
 	
 	private PreparedStatement findAllSalesPricesByID;
