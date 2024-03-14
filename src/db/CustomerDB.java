@@ -11,7 +11,7 @@ import model.Customer;
 
 public class CustomerDB implements CustomerDAO {
 
-	private static final String FIND_ALL_Q = "select customer_id, name, email, address, cvr, zipcode, phone_no  from customer";
+	private static final String FIND_ALL_Q = "select customer_id, name, email, address, cvr, zipcode, phone_no from customer";
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where customer_id = ?";
 	private static final String UPDATE_Q = "update customers set name = ?, email = ?, address = ?, cvr = ?, zipcode = ?, phone_no = ? where customer_id = ?";
 	private PreparedStatement findAllPS;
@@ -62,7 +62,7 @@ public class CustomerDB implements CustomerDAO {
 			ResultSet rs = findByIDPS.executeQuery();
 			res = buildObject(rs, false);
 		} catch (SQLException e) {
-			throw new Exception("Could not find by phone", e);
+			throw new Exception("Could not find by ID", e);
 		}
 
 		return res;
@@ -73,10 +73,10 @@ public class CustomerDB implements CustomerDAO {
 		if (rs.next()) {
 			if (rs.getString("cvr") == null) {
 				c = new Customer(
+						rs.getInt("customer_id"),
 						rs.getString("name"), 
 						rs.getString("address"), 
 						rs.getInt("zipcode"),
-						rs.getString("city"), 
 						rs.getString("phone_no"), 
 						rs.getString("email"));
 			} else {
@@ -87,24 +87,20 @@ public class CustomerDB implements CustomerDAO {
 		return c;
 	}
 
-	@Override
-	public void updateCustomer(Customer c) throws Exception {
-		
-		try {
-			updatePS.setString(1, c.getName());
-			updatePS.setString(2, c.getAddress());
-			updatePS.setInt(3, c.getZipcode());
-			updatePS.setString(4, c.getCity());
-			updatePS.setString(5, c.getPhoneNo());
-			updatePS.setString(6, c.getEmail());
-			updatePS.executeUpdate();
-			
-		} catch (SQLException e) {
-			throw new Exception("Could not update customer", e);
-		}
-		
-		
-
-	}
+	/*
+	 * @Override public void updateCustomer(Customer c) throws Exception {
+	 * 
+	 * try { updatePS.setString(1, c.getName()); updatePS.setString(2,
+	 * c.getAddress()); updatePS.setInt(3, c.getZipcode()); updatePS.setString(5,
+	 * c.getPhoneNo()); updatePS.setString(6, c.getEmail());
+	 * updatePS.executeUpdate();
+	 * 
+	 * } catch (SQLException e) { throw new Exception("Could not update customer",
+	 * e); }
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 
 	}

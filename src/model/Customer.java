@@ -6,16 +6,15 @@ public class Customer {
 	private String name;
 	private String address;
 	private int zipcode;
-	private String city;
 	private String phoneNo;
 	private String email;
 	
-	public Customer(String name, String address, int zipcode, String city, String phoneNo, String email) {
+	public Customer(int customerID, String name, String address, int zipcode, String phoneNo, String email) {
 		super();
+		this.customerID = customerID;
 		this.name = name;
 		this.address = address;
 		this.zipcode = zipcode;
-		this.city = city;
 		this.phoneNo = phoneNo;
 		this.email = email;
 	}
@@ -39,12 +38,7 @@ public class Customer {
 	public void setZipcode(int zipcode) {
 		this.zipcode = zipcode;
 	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
+	
 	public String getPhoneNo() {
 		return phoneNo;
 	}
@@ -74,7 +68,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerID + ", name=" + name + ", address=" + address + ", zipcode=" + zipcode
-				+ ", city=" + city + ", phoneNo=" + phoneNo + ", email=" + email + "]";
+				+ ", phoneNo=" + phoneNo + ", email=" + email + "]";
 	}
 	
 	
