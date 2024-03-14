@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import db.SaleOrderDB;
 import model.Customer;
 import model.DeliveryStatus;
 import model.Employee;
+import model.Invoice;
 import model.Product;
 import model.SaleOrder;
 import model.SaleOrderLine;
@@ -56,6 +58,8 @@ public class SaleOrderController {
 		} else {
 			currentSaleOrder.setFreight(0d);
 		}
+		currentSaleOrder.addInvoice(new Invoice(currentSaleOrder.getCustomer().getCustomerID() + (int) Instant.now().getEpochSecond(), 
+				LocalDate.now(), currentSaleOrder.getAmount() + currentSaleOrder.getFreight()));
 		currentSaleOrder = null;
 		res = true;
 		return res;
