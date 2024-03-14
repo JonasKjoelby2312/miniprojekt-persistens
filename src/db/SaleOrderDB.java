@@ -85,7 +85,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 			insertSaleOrderPS.setInt(7,so.getEmployee().getEmployeeID());
 			
 			insertSaleOrderPS.executeUpdate();
-			System.out.println(DBConnection.getInstance().getConnection().prepareStatement("OUTPUT Inserted.ID"));
+			System.out.println(DBConnection.getInstance().getConnection().prepareStatement("@@Identity"));
 			
 			res = true;
 		} catch (Exception e) {
