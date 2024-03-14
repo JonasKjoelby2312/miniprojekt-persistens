@@ -31,6 +31,18 @@ public class SaleOrder {
 		}
 		return res;
 	}
+	
+	public int getSaleOrderID() {
+		return saleOrderID;
+	}
+
+	public void setSaleOrderID(int saleOrderID) {
+		this.saleOrderID = saleOrderID;
+	}
+
+	public void setInvoices(List<Invoice> invoices) {
+		this.invoices = invoices;
+	}
 
 	public Employee getEmployee() {
 		return employee;

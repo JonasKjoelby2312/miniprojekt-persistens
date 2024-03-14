@@ -76,30 +76,17 @@ public class SaleOrderDB implements SaleOrderDAO {
 	public boolean insertSaleOrder(SaleOrder so) throws Exception {
 		boolean res = false;
 		try {
-			
-			  insertSaleOrderPS.setDate(1, Date.valueOf(so.getDate()));
-			  insertSaleOrderPS.setDouble(2, so.getAmount());
-			  insertSaleOrderPS.setString(3, so.getDeliveryStatus().toString());
-			  insertSaleOrderPS.setDate(4, Date.valueOf(so.getDeliveryDate()));
-			  insertSaleOrderPS.setDouble(5, so.getFreight()); 
-			  insertSaleOrderPS.setInt(6,so.getCustomer().getCustomerID()); 
-			  insertSaleOrderPS.setInt(7,so.getEmployee().getEmployeeID());
-			
-			
-			
-			 
-			
-			
-//			insertSaleOrderPS.setDate(1, Date.valueOf(so.getDate()));
-//			insertSaleOrderPS.setDouble(2, 200.0);
-//			insertSaleOrderPS.setString(3, so.getDeliveryStatus().toString());
-//			insertSaleOrderPS.setDate(4, Date.valueOf("2024-03-13"));
-//			insertSaleOrderPS.setDouble(5, 45.0);
-//			insertSaleOrderPS.setInt(6, 1);
-//			insertSaleOrderPS.setInt(7, 1);
-			
+			insertSaleOrderPS.setDate(1, Date.valueOf(so.getDate()));
+			insertSaleOrderPS.setDouble(2, so.getAmount());
+			insertSaleOrderPS.setString(3, so.getDeliveryStatus().toString());
+			insertSaleOrderPS.setDate(4, Date.valueOf(so.getDeliveryDate()));
+			insertSaleOrderPS.setDouble(5, so.getFreight()); 
+			insertSaleOrderPS.setInt(6,so.getCustomer().getCustomerID()); 
+			insertSaleOrderPS.setInt(7,so.getEmployee().getEmployeeID());
 			
 			insertSaleOrderPS.executeUpdate();
+			System.out.println(DBConnection.getInstance().getConnection().prepareStatement("OUTPUT Inserted.ID"));
+			
 			res = true;
 		} catch (Exception e) {
 			throw new Exception("Could not insert SaleOrder in DB");

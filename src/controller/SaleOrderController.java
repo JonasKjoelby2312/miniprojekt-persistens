@@ -7,6 +7,8 @@ import java.util.List;
 
 import db.SaleOrderDAO;
 import db.SaleOrderDB;
+import db.SaleOrderLineDAO;
+import db.SaleOrderLineDB;
 import model.Customer;
 import model.DeliveryStatus;
 import model.Employee;
@@ -20,6 +22,7 @@ public class SaleOrderController {
 	private CustomerController cCtrl;
 	private EmployeeController eCtrl;
 	private SaleOrderDAO saleOrderDB;
+	private SaleOrderLineDAO saleOrderLineDB;
 	private SaleOrder currentSaleOrder;
 	
 	public SaleOrderController() throws Exception {
@@ -27,6 +30,7 @@ public class SaleOrderController {
 		cCtrl = new CustomerController();
 		eCtrl = new EmployeeController();
 		saleOrderDB = new SaleOrderDB();
+		saleOrderLineDB = new SaleOrderLineDB();
 	}
 	
 	public SaleOrder registerOrder(int employeeID, int customerID) throws Exception {
@@ -61,8 +65,8 @@ public class SaleOrderController {
 		currentSaleOrder.addInvoice(new Invoice(currentSaleOrder.getCustomer().getCustomerID() + (int) Instant.now().getEpochSecond(), 
 				LocalDate.now(), currentSaleOrder.getAmount() + currentSaleOrder.getFreight()));
 		saleOrderDB.insertSaleOrder(currentSaleOrder);
+		//saleOrderLineDB.insertSaleOrderLines(currentSaleOrder.getSaleOrderLines());
 		currentSaleOrder = null;
-		System.out.println(currentSaleOrder);
 		res = true;
 		return res;
 	}
