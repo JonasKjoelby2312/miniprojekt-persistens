@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Employee;
+import model.Product;
 
 public class EmployeeDB implements EmployeeDAO {
 	
@@ -77,18 +78,25 @@ public class EmployeeDB implements EmployeeDAO {
 //	}
 	
 	private Employee buildObject(ResultSet rs, boolean fullAssociation) throws SQLException {
-		Employee e = new Employee(
-				rs.getString("name"),
-				rs.getString("company_position"),
-				rs.getInt("salary"));
-		return e;
+		Employee res = null;
+		if(rs.next()) {
+			res = new Employee(
+					rs.getInt("employee_id"),
+					rs.getString("name"),
+					rs.getString("company_position"),
+					rs.getInt("salary")
+					);
+		}
+		return res;
 	}
 	
 	
 	private List<Employee> buildObjects(ResultSet rs, boolean fullAssociation) throws SQLException {
-		List<Employee> res = new ArrayList<>();
-		while(rs.next()) {
-			res.add(buildObject(rs, false));
+		ArrayList<Employee> res = new ArrayList<>();
+		Employee e = buildObject(rs, false);
+		while (e != null) {
+			res.add(e);
+			e = buildObject(rs, false);
 		}
 		return res;
 	}
