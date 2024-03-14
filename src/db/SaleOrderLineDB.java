@@ -72,7 +72,7 @@ public class SaleOrderLineDB implements SaleOrderLineDAO {
 				insertSaleOrderLine.setInt(1, sol.getQuantity());
 				insertSaleOrderLine.setDouble(2, sol.getUnitPrice());
 				insertSaleOrderLine.setInt(3, sol.getProduct().getProductID());
-				insertSaleOrderLine.setInt(4, so.getSaleOrderID());
+				insertSaleOrderLine.setInt(4, 1); //SKAL LIGE TJEKKES IGENNEM MED ISTVAN
 			}
 			
 		} catch (Exception e) {

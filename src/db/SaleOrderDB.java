@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +75,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 	//}
 
 	@Override
-	public boolean insertSaleOrder(SaleOrder so) throws Exception {
-		boolean res = false;
+	public void insertSaleOrder(SaleOrder so) throws Exception {
 		try {
 			insertSaleOrderPS.setDate(1, Date.valueOf(so.getDate()));
 			insertSaleOrderPS.setDouble(2, so.getAmount());
@@ -85,14 +86,10 @@ public class SaleOrderDB implements SaleOrderDAO {
 			insertSaleOrderPS.setInt(7,so.getEmployee().getEmployeeID());
 			
 			insertSaleOrderPS.executeUpdate();
-			System.out.println(DBConnection.getInstance().getConnection().prepareStatement("IDENT_CURRENT(sale_order)"));
-			
-			res = true;
+            	
 		} catch (Exception e) {
 			throw new Exception("Could not insert SaleOrder in DB");
 		}
-		
-		return res; //Skal den altid return true, også ingenting når den får fejl?
 	}
 	
 	private List<SaleOrder> buildObjects(ResultSet rs) throws Exception {
