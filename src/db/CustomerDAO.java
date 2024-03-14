@@ -8,7 +8,7 @@ public interface CustomerDAO {
 	
 		List<Customer> findAllCustomers() throws Exception;
 		Customer findCustomerByID(int id) throws Exception;
-		void updateCustomer(Customer c) throws Exception;
+		/* void updateCustomer(Customer c) throws Exception; */
 	}
 
 

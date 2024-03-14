@@ -69,7 +69,6 @@ public class Supplier {
 	}
 	
 	
-
 	public int getSupplierID() {
 		return supplierID;
 	}
