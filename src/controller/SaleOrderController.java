@@ -27,10 +27,10 @@ public class SaleOrderController {
 		saleOrderDB = new SaleOrderDB();
 	}
 	
-	public SaleOrder registerOrder(int employeeID, String customerPhone) throws Exception {
+	public SaleOrder registerOrder(int employeeID, int customerID) throws Exception {
 		SaleOrder res = null;
 		Employee e = eCtrl.findEmployeeByID(employeeID);
-		Customer c = cCtrl.findCustomerByPhone(customerPhone);
+		Customer c = cCtrl.findCustomerByID(customerID);
 		currentSaleOrder = new SaleOrder(e, c);
 		return currentSaleOrder;
 	}
@@ -45,7 +45,7 @@ public class SaleOrderController {
 		return res;
 	}
 	
-	public boolean completeOrder() {
+	public boolean completeSaleOrder() {
 		boolean res = false;
 		currentSaleOrder.setDate(LocalDate.now());
 		currentSaleOrder.setDeliveryDate(LocalDate.now().plusMonths(1));

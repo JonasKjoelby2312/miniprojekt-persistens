@@ -20,7 +20,7 @@ public class CustomerController {
 		return customerDB.findAllCustomers();
 	}
 	
-	public Customer findCustomerByPhone(int id) throws Exception {
+	public Customer findCustomerByID(int id) throws Exception {
 		return customerDB.findCustomerByID(id);
 	}
 	

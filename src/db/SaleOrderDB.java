@@ -10,6 +10,7 @@ import java.util.List;
 
 import model.DeliveryStatus;
 import model.SaleOrder;
+import model.SaleOrderLine;
 
 public class SaleOrderDB implements SaleOrderDAO {
 	private static final String FIND_ALL_Q = "select date, amount, delivery_status, delivery_date, freight, c_id, e_id, sol_id from SaleOrder";
@@ -19,16 +20,24 @@ public class SaleOrderDB implements SaleOrderDAO {
 	
 	private PreparedStatement findAllPS, findSaleOrderByIdPS, updatePS, insertSaleOrderPS;
 	
+	private CustomerDB customerDB;
+	private EmployeeDB employeeDB;
+	private SaleOrderLineDB saleOrderLineDB;
+	
 	
 	public SaleOrderDB() throws Exception {
 		Connection con = DBConnection.getInstance().getConnection();
+		customerDB = new CustomerDB();
+		employeeDB = new EmployeeDB();
+		saleOrderLineDB = new SaleOrderLineDB();
+		
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findSaleOrderByIdPS = con.prepareStatement(FIND_ALL_Q);
 			//updatePS = con.prepareStatement(UPDATE_Q);
 			insertSaleOrderPS = con.prepareStatement(INSERT_SALE_ORDER_Q);
 		} catch (SQLException e) {
-			
+			throw new Exception("Could not prepare statements");
 		}
 		
 	}
@@ -72,8 +81,8 @@ public class SaleOrderDB implements SaleOrderDAO {
 			insertSaleOrderPS.setString(3, so.getDeliveryStatus().toString());
 			insertSaleOrderPS.setDate(4, Date.valueOf(so.getDeliveryDate()));
 			insertSaleOrderPS.setDouble(5, so.getFreight());
-			insertSaleOrderPS.setInt(6, so.getCustomer().getId()); //!Kritisk
-			insertSaleOrderPS.setInt(7, so.getEmployee().getID()); //!Kritisk
+			insertSaleOrderPS.setInt(6, so.getCustomer().getCustomerID());
+			insertSaleOrderPS.setInt(7, so.getEmployee().getEmployeeID());
 			
 			insertSaleOrderPS.executeUpdate();
 			res = true;
@@ -100,8 +109,8 @@ public class SaleOrderDB implements SaleOrderDAO {
 		try {
 			if(rs.next()) {
 				res = new SaleOrder(
-						employeeDB.findEmployeeByID(rs.getInt("e_id")), //!Kritisk
-						customerDB.findEmployeeByID(rs.getInt("c_id")) //!Kritisk
+						employeeDB.findEmployeeByID(rs.getInt("e_id")),
+						customerDB.findCustomerByID(rs.getInt("c_id"))
 						);
 				
 				res.setDate(rs.getDate("date").toLocalDate());
@@ -109,6 +118,11 @@ public class SaleOrderDB implements SaleOrderDAO {
 				res.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
 				res.setDeliveryDate(rs.getDate("delivery_date").toLocalDate());
 				res.setFreight(rs.getDouble("freight"));
+				
+				List<SaleOrderLine> sols = saleOrderLineDB.findBySaleOrderID(rs.getInt("sale_order_id"));
+				for(SaleOrderLine sol : sols) {
+					res.addSaleOrderLine(sol);
+				}
 			}
 		} catch (Exception e) {
 			throw new Exception("Could not build object", e);
