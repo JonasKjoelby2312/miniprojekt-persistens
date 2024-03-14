@@ -51,6 +51,7 @@ public class EmployeeDB implements EmployeeDAO {
 		Employee res = null;
 		ResultSet rs;
 		try {
+			findByIdPS.setInt(1, id);
 			rs = findByIdPS.executeQuery();
 			res = buildObject(rs, false);
 		} catch(SQLException e) {
