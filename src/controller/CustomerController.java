@@ -1,29 +1,30 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import db.CustomerDAO;
 import db.CustomerDB;
 import model.Customer;
 
+
 public class CustomerController {
 	//Instance variables
-	private CustomerDB customerDB;
+	private CustomerDAO customerDB;
 	
 	//Instantiates an object of the CustomerController class
-	public CustomerController() {
-		customerDB = CustomerDB.getInstance();
+	public CustomerController() throws Exception{
+		customerDB = new CustomerDB();
 	}
 	
-	public ArrayList<Customer> findAllCustomers() throws Exception {
-		ArrayList<Customer> res = new ArrayList<>();
-		return res;
+	public List<Customer> findAllCustomers() throws Exception {
+		return customerDB.findAllCustomers();
 	}
 	
 	public Customer findCustomerByPhone(String phone) throws Exception {
-		return customerDB.findByPhone(phone);
+		return customerDB.findCustomerByPhone(phone);
 	}
 	
-	public Customer updateCustomer(Customer c) {
-		return customerDB.updateCustomer();
-	}
+//	public Customer updateCustomer(Customer c) throws Exception {
+//		return customerDB.updateCustomer();
+//	}
 }

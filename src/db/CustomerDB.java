@@ -56,7 +56,7 @@ public class CustomerDB implements CustomerDAO {
 	
 
 	@Override
-	public Customer findByPhone(String phone) throws Exception {
+	public Customer findCustomerByPhone(String phone) throws Exception {
 		Customer res = null;
 		try {
 			findByPhonePS.setString(1, phone);

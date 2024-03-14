@@ -7,7 +7,7 @@ import model.Customer;
 public interface CustomerDAO {
 	
 		List<Customer> findAllCustomers() throws Exception;
-		Customer findByPhone(String phone) throws Exception;
+		Customer findCustomerByPhone(String phone) throws Exception;
 		void updateCustomer(Customer c) throws Exception;
 	}
 
