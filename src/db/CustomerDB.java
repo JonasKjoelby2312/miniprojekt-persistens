@@ -11,19 +11,18 @@ import model.Customer;
 
 public class CustomerDB implements CustomerDAO {
 
-	private static final String FIND_ALL_Q = "select id, name, email, address, cvr, zipcode, phone_no  from customer";
-	private static final String FIND_BY_PHONE_Q = FIND_ALL_Q + " where phone_no = ?";
-	// HJÆLP AF ISTVAN ift where phone skal kodes og skrives i eclipse
-	private static final String UPDATE_Q = "update customers set name = ?, email = ?, address = ?, cvr = ?, zipcode = ?, phone_no = ? where phone_no = ?";
+	private static final String FIND_ALL_Q = "select customer_id, name, email, address, cvr, zipcode, phone_no  from customer";
+	private static final String FIND_BY_PHONE_Q = FIND_ALL_Q + " where customer_id = ?";
+	private static final String UPDATE_Q = "update customers set name = ?, email = ?, address = ?, cvr = ?, zipcode = ?, phone_no = ? where customer_id = ?";
 	private PreparedStatement findAllPS;
-	private PreparedStatement findByPhonePS;
+	private PreparedStatement findByIDPS;
 	private PreparedStatement updatePS;
 
 	public CustomerDB() throws Exception {
 		Connection con = DBConnection.getInstance().getConnection();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
-			findByPhonePS = con.prepareStatement(FIND_BY_PHONE_Q);
+			findByIDPS = con.prepareStatement(FIND_BY_PHONE_Q);
 			updatePS = con.prepareStatement(UPDATE_Q);
 
 		} catch (SQLException e) {
@@ -56,11 +55,11 @@ public class CustomerDB implements CustomerDAO {
 	
 
 	@Override
-	public Customer findCustomerByPhone(String phone) throws Exception {
+	public Customer findCustomerByID(int id) throws Exception {
 		Customer res = null;
 		try {
-			findByPhonePS.setString(1, phone);
-			ResultSet rs = findByPhonePS.executeQuery();
+			findByIDPS.setInt(1, id);
+			ResultSet rs = findByIDPS.executeQuery();
 			res = buildObject(rs, false);
 		} catch (SQLException e) {
 			throw new Exception("Could not find by phone", e);
