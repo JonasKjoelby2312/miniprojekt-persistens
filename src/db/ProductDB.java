@@ -79,7 +79,7 @@ public class ProductDB implements ProductDAO {
 					rs.getInt("product_id"),
 					rs.getString("name"),
 					rs.getDouble("purchase_price"),
-					salesPriceDB.findSalesPriceByID(rs.getInt("s_price")),
+					salesPriceDB.findSalesPriceByID(rs.getInt("product_id")),
 					rs.getString("country_of_origin"),
 					null,
 					null
