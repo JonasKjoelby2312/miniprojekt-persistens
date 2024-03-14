@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaleOrder {
+	
+	private int saleOrderID;
 	private LocalDate date;
 	private Employee employee;
 	private Customer customer;
@@ -87,6 +89,10 @@ public class SaleOrder {
 	}
 	
 
+	public void setSaleOrderLines(List<SaleOrderLine> saleOrderLines) {
+		this.saleOrderLines = saleOrderLines;
+	}
+
 	public List<SaleOrderLine> getSaleOrderLines() {
 		return new ArrayList<>(saleOrderLines);
 	}
@@ -121,8 +127,12 @@ public class SaleOrder {
 
 	@Override
 	public String toString() {
-		return "SaleOrder [date=" + date + ", amount=" + amount + ", deliveryStatus=" + deliveryStatus
-				+ ", deliveryDate=" + deliveryDate + ", freight=" + freight + ", saleOrderLines=" + saleOrderLines
-				+ ", invoices=" + invoices + "]";
+		return "SaleOrder [saleOrderId=" + saleOrderID + ", date=" + date + ", employee=" + employee + ", customer="
+				+ customer + ", amount=" + amount + ", deliveryStatus=" + deliveryStatus + ", deliveryDate="
+				+ deliveryDate + ", freight=" + freight + ", saleOrderLines=" + saleOrderLines + ", invoices="
+				+ invoices + "]";
 	}
+
+	
+	
 }
