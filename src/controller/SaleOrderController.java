@@ -60,8 +60,8 @@ public class SaleOrderController {
 		}
 		currentSaleOrder.addInvoice(new Invoice(currentSaleOrder.getCustomer().getCustomerID() + (int) Instant.now().getEpochSecond(), 
 				LocalDate.now(), currentSaleOrder.getAmount() + currentSaleOrder.getFreight()));
-		currentSaleOrder = null;
 		saleOrderDB.insertSaleOrder(currentSaleOrder);
+		currentSaleOrder = null;
 		System.out.println(currentSaleOrder);
 		res = true;
 		return res;
