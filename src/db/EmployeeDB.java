@@ -52,9 +52,7 @@ public class EmployeeDB implements EmployeeDAO {
 		ResultSet rs;
 		try {
 			rs = findByIdPS.executeQuery();
-			if(rs.next()) {
-				res = buildObject(rs, false);
-			}
+			res = buildObject(rs, false);
 		} catch(SQLException e) {
 			throw new Exception("Could not find employee by ID", e);
 		}
