@@ -1,18 +1,22 @@
 package model;
 
+import java.util.List;
+
 public class GunReplica extends Product {
 	private String calbire;
 	private String material;
 	private double rentPrice;
-
-	public GunReplica(String name, double purchasePrice, SalesPrice salesPrice, String countryOfOrigin,
-			Supplier supplier, Stock stock, String calibre, String material,
+	
+	public GunReplica(int productID, String name, double purchasePrice, List<SalesPrice> salesPrices,
+			String countryOfOrigin, Supplier supplier, List<Stock> stocks, String calbire, String material,
 			double rentPrice) {
-		super(name, purchasePrice, salesPrice, countryOfOrigin, supplier, stock);
-		this.calbire = calibre;
+		super(productID, name, purchasePrice, salesPrices, countryOfOrigin, supplier, stocks);
+		this.calbire = calbire;
 		this.material = material;
 		this.rentPrice = rentPrice;
 	}
+
+
 
 	public String getCalbire() {
 		return calbire;

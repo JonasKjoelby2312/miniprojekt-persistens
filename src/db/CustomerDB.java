@@ -12,7 +12,7 @@ import model.Customer;
 public class CustomerDB implements CustomerDAO {
 
 	private static final String FIND_ALL_Q = "select customer_id, name, email, address, cvr, zipcode, phone_no  from customer";
-	private static final String FIND_BY_PHONE_Q = FIND_ALL_Q + " where customer_id = ?";
+	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where customer_id = ?";
 	private static final String UPDATE_Q = "update customers set name = ?, email = ?, address = ?, cvr = ?, zipcode = ?, phone_no = ? where customer_id = ?";
 	private PreparedStatement findAllPS;
 	private PreparedStatement findByIDPS;
@@ -22,7 +22,7 @@ public class CustomerDB implements CustomerDAO {
 		Connection con = DBConnection.getInstance().getConnection();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
-			findByIDPS = con.prepareStatement(FIND_BY_PHONE_Q);
+			findByIDPS = con.prepareStatement(FIND_BY_ID_Q);
 			updatePS = con.prepareStatement(UPDATE_Q);
 
 		} catch (SQLException e) {

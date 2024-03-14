@@ -11,17 +11,17 @@ public class Product {
 	private List<SalesPrice> salesPrices;
 	private String countryOfOrigin;
 	private Supplier supplier;
-	private Stock stock;
+	private List<Stock> stocks;
 
-	public Product(String name, double purchasePrice, SalesPrice salesPrice, String countryOfOrigin, Supplier supplier, Stock stock) {
+	public Product(int productID, String name, double purchasePrice, List<SalesPrice> salesPrices, String countryOfOrigin, Supplier supplier, List<Stock> stocks) {
 		super(); 
+		this.productID = productID;
 		this.name = name;
 		this.purchasePrice = purchasePrice;
 		this.countryOfOrigin = countryOfOrigin;
 		this.supplier = supplier;
-		this.stock = stock; 
-		salesPrices = new ArrayList<SalesPrice>();
-		addSalesPrice(salesPrice);
+		this.salesPrices = salesPrices;
+		this.stocks = stocks;
 	}
 
 	public String getName() {
@@ -72,16 +72,28 @@ public class Product {
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
-
-	public Stock getStock() {
-		return stock;
-	}
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
+	
+	public List<Stock> getStocks() {
+		return new ArrayList<>(stocks);
 	}
 	
+	public boolean addStock(Stock stock) {
+		boolean res = false;
+		if(stock != null) {
+			stocks.add(stock);
+			res = true;
+		}
+		return res;
+	}
 	
+	public boolean removeStock(Stock stock) {
+		boolean res = false;
+		if(stock != null) {
+			stocks.remove(stock);
+			res = true;
+		}
+		return res;
+	}
 
 	public int getProductID() {
 		return productID;
@@ -95,12 +107,8 @@ public class Product {
 	public String toString() {
 		return "Product [productID=" + productID + ", name=" + name + ", purchasePrice=" + purchasePrice
 				+ ", salesPrices=" + salesPrices + ", countryOfOrigin=" + countryOfOrigin + ", supplier=" + supplier
-				+ ", stock=" + stock + "]";
+				+ ", stocks=" + stocks + "]";
 	}
-
-	
-
-	
 }
 
 	

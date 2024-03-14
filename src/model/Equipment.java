@@ -1,12 +1,14 @@
 package model;
 
+import java.util.List;
+
 public class Equipment extends Product {
 	private String type;
 	private String description;
 
-	public Equipment(String name, double purchasePrice, SalesPrice salesPrice, String countryOfOrigin,
-			Supplier supplier, Stock stock, String type, String description) {
-		super(name, purchasePrice, salesPrice, countryOfOrigin, supplier, stock);
+	public Equipment(int productID, String name, double purchasePrice, List<SalesPrice> salesPrices,
+			String countryOfOrigin, Supplier supplier, List<Stock> stocks, String type, String description) {
+		super(productID, name, purchasePrice, salesPrices, countryOfOrigin, supplier, stocks);
 		this.type = type;
 		this.description = description;
 	}

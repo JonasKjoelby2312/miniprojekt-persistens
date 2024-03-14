@@ -8,8 +8,9 @@ public class SalesPrice {
 	private LocalDate startDate;
 	private double value;
 	
-	public SalesPrice(LocalDate startDate, double value) {
+	public SalesPrice(int SalesID, LocalDate startDate, double value) {
 		super();
+		this.salesID = salesID;
 		this.startDate = startDate;
 		this.value = value;
 	}
