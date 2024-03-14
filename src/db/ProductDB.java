@@ -12,7 +12,7 @@ import model.Product;
 
 public class ProductDB implements ProductDAO {
 
-	private static final String FIND_ALL_Q = "select product_id, name, purchase_price, country_of_orgin, s_id from Product";
+	private static final String FIND_ALL_Q = "select product_id, name, purchase_price, country_of_origin, s_id from Product";
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where product_id = ?";
 	// HJÆLP AF ISTVAN ift where phone skal kodes og skrives i eclipse
 	//private static final String UPDATE_Q = "update products set name = ?, purchasePrice = ?, salesPrice = ?, countryOfOrgin = ?, minStock = ?, maxStock = ?, currentStock = ?, location = ?, supplier = ?, where product_id = ?";
