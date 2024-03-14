@@ -2,12 +2,14 @@ package model;
 
 public class Customer {
 
+	private int customerID;
 	private String name;
 	private String address;
 	private int zipcode;
 	private String city;
 	private String phoneNo;
 	private String email;
+	
 	public Customer(String name, String address, int zipcode, String city, String phoneNo, String email) {
 		super();
 		this.name = name;
@@ -56,9 +58,26 @@ public class Customer {
 		this.email = email;
 	}
 	
+	
+
+
+	public int getCustomerID() {
+		return customerID;
+	}
+
+
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Customer [name=" + name + ", address=" + address + ", zipcode=" + zipcode + ", city=" + city
-				+ ", phoneNo=" + phoneNo + ", email=" + email + "]";
-}
+		return "Customer [customerId=" + customerID + ", name=" + name + ", address=" + address + ", zipcode=" + zipcode
+				+ ", city=" + city + ", phoneNo=" + phoneNo + ", email=" + email + "]";
+	}
+	
+	
+	
+	
 	}

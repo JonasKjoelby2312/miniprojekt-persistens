@@ -1,6 +1,8 @@
 package model;
 
 public class SaleOrderLine {
+	
+	private int saleOrderLineID;
 	private int quantity;
 	private double unitPrice;
 	private Product product;
@@ -36,9 +38,22 @@ public class SaleOrderLine {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+	
+	
+
+	public int getSaleOrderLineID() {
+		return saleOrderLineID;
+	}
+
+	public void setSaleOrderLineID(int saleOrderLineID) {
+		this.saleOrderLineID = saleOrderLineID;
+	}
 
 	@Override
 	public String toString() {
-		return "SaleOrderLine [quantity=" + quantity + ", unitPrice=" + unitPrice + ", product=" + product + "]";
+		return "SaleOrderLine [saleOrderLineID=" + saleOrderLineID + ", quantity=" + quantity + ", unitPrice="
+				+ unitPrice + ", product=" + product + "]";
 	}
+
+	
 }

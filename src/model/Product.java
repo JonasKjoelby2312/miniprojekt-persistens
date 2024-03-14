@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Product {
 
+	private int productID;
 	private String name;
 	private double purchasePrice;
 	private List<SalesPrice> salesPrices;
@@ -79,12 +80,25 @@ public class Product {
 	public void setStock(Stock stock) {
 		this.stock = stock;
 	}
+	
+	
+
+	public int getProductID() {
+		return productID;
+	}
+
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
 
 	@Override
 	public String toString() {
-		return "Product [name=" + name + ", purchasePrice=" + purchasePrice + ", countryOfOrigin=" + countryOfOrigin
-				+ ", supplier=" + supplier + "]";
+		return "Product [productID=" + productID + ", name=" + name + ", purchasePrice=" + purchasePrice
+				+ ", salesPrices=" + salesPrices + ", countryOfOrigin=" + countryOfOrigin + ", supplier=" + supplier
+				+ ", stock=" + stock + "]";
 	}
+
+	
 
 	
 }

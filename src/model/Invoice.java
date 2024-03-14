@@ -3,6 +3,8 @@ package model;
 import java.time.LocalDate;
 
 public class Invoice {
+	
+	private int invoiceID;
 	private int invoiceNo;
 	private LocalDate paymentDate;
 	private double amount;
@@ -30,8 +32,19 @@ public class Invoice {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+	
+	
+	public int getInvoiceID() {
+		return invoiceID;
+	}
+	public void setInvoiceID(int invoiceID) {
+		this.invoiceID = invoiceID;
+	}
 	@Override
 	public String toString() {
-		return "Invoice [invoiceNo=" + invoiceNo + ", paymentDate=" + paymentDate + ", amount=" + amount + "]";
+		return "Invoice [invoiceID=" + invoiceID + ", invoiceNo=" + invoiceNo + ", paymentDate=" + paymentDate
+				+ ", amount=" + amount + "]";
 	}
+	
+	
 }

@@ -1,6 +1,8 @@
 package model;
 
 public class Supplier {
+	
+	private int supplierID;
 	private String name;
 	private String address;
 	private String country;
@@ -65,10 +67,22 @@ public class Supplier {
 	public void setCvr(String cvr) {
 		this.cvr = cvr;
 	}
+	
+	
+
+	public int getSupplierID() {
+		return supplierID;
+	}
+
+	public void setSupplierID(int supplierID) {
+		this.supplierID = supplierID;
+	}
 
 	@Override
 	public String toString() {
-		return "Supplier [name=" + name + ", address=" + address + ", country=" + country + ", phoneNo=" + phoneNo
-				+ ", email=" + email + ", cvr=" + cvr + "]";
+		return "Supplier [supplierID=" + supplierID + ", name=" + name + ", address=" + address + ", country=" + country
+				+ ", phoneNo=" + phoneNo + ", email=" + email + ", cvr=" + cvr + "]";
 	}
+
+	
 }
