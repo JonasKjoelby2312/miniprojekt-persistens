@@ -9,16 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Product;
+import model.SaleOrderLine;
 
 public class ProductDB implements ProductDAO {
 
 	private static final String FIND_ALL_Q = "select product_id, name, purchase_price, country_of_origin, s_id from Product";
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where product_id = ?";
-	// HJÆLP AF ISTVAN ift where phone skal kodes og skrives i eclipse
-	//private static final String UPDATE_Q = "update products set name = ?, purchasePrice = ?, salesPrice = ?, countryOfOrgin = ?, minStock = ?, maxStock = ?, currentStock = ?, location = ?, supplier = ?, where product_id = ?";
 	private PreparedStatement findAllPS;
 	private PreparedStatement findByIDPS;
-	//private PreparedStatement updatePS;
 	
 	private SalesPriceDB salesPriceDB;
 
@@ -28,10 +26,8 @@ public class ProductDB implements ProductDAO {
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findByIDPS = con.prepareStatement(FIND_BY_ID_Q);
-			//updatePS = con.prepareStatement(UPDATE_Q);
-
 		} catch (SQLException e) {
-			throw new Exception("Cannot prepare query at the moment", e);
+			throw new Exception("Cannot prepare statements", e);
 		}
 	}
 
@@ -87,23 +83,6 @@ public class ProductDB implements ProductDAO {
 		}
 		return res;
 	}
-
-//	@Override
-//	public void updateProduct(Product p) throws Exception {
-//		
-//		try {
-//			updatePS.setString(1, p.getName());
-//			updatePS.setDouble(2, p.getPurchasePrice());
-//			updatePS.setSalesPrice(3, p.getSalesPrice());
-//			updatePS.setString(4, p.getCountryOfOrigin());
-//			updatePS.setSupplier(5, p.getSupplier());
-//			updatePS.setStock(6, p.getStock());
-//			updatePS.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			throw new Exception("Could not update product", e);
-//		}
-		
 	}
 
 	

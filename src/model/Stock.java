@@ -1,13 +1,11 @@
 package model;
 
 public class Stock {
-	
 	private int stockID;
 	private int minStock;
 	private int maxStock;
 	private int currentStock;
 	
-
 	public Stock(int minStock, int maxStock, int currentStock) {
 		this.maxStock = maxStock;
 		this.minStock = minStock;
@@ -31,7 +29,6 @@ public class Stock {
 		this.maxStock = maxStock;
 	}
 	
-
 	public int getCurrentStock() {
 		return currentStock;
 	}
@@ -40,8 +37,6 @@ public class Stock {
 		this.currentStock = currentStock;
 	}
 	
-	
-
 	public int getStockID() {
 		return stockID;
 	}
@@ -55,9 +50,4 @@ public class Stock {
 		return "Stock [stockID=" + stockID + ", minStock=" + minStock + ", maxStock=" + maxStock + ", currentStock="
 				+ currentStock + "]";
 	}
-
-	
-
-	
-	
 }

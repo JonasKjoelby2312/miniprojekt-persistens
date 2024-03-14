@@ -1,7 +1,6 @@
 package model;
 
 public class Address {
-
 		private String zipcode;
 		private String city;
 		
@@ -9,7 +8,6 @@ public class Address {
 			this.zipcode = zipcode;
 			this.city = city;
 		}
-
 
 		public String getZipcode() {
 			return zipcode;

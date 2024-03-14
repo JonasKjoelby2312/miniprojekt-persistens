@@ -1,7 +1,6 @@
 package model;
 
 public class Location {
-	
 	private int locationID;
 	private String locationtype;
 	
@@ -17,7 +16,6 @@ public class Location {
 		this.locationtype = locationtype;
 	}
 	
-
 	public int getLocationID() {
 		return locationID;
 	}
@@ -30,7 +28,4 @@ public class Location {
 	public String toString() {
 		return "Location [locationID=" + locationID + ", locationtype=" + locationtype + "]";
 	}
-
-	
-
 }

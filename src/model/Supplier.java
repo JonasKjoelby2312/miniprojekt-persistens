@@ -1,7 +1,6 @@
 package model;
 
 public class Supplier {
-	
 	private int supplierID;
 	private String name;
 	private String address;
@@ -82,6 +81,4 @@ public class Supplier {
 		return "Supplier [supplierID=" + supplierID + ", name=" + name + ", address=" + address + ", country=" + country
 				+ ", phoneNo=" + phoneNo + ", email=" + email + ", cvr=" + cvr + "]";
 	}
-
-	
 }

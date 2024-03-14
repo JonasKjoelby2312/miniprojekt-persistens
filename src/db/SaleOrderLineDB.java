@@ -10,6 +10,7 @@ import model.SaleOrder;
 import model.SaleOrderLine;
 
 public class SaleOrderLineDB implements SaleOrderLineDAO {
+	//Instancevariables of the class SaleOrderLine
 	private static final String FIND_ALL_Q = "select sale_order_line_id, quantity, unitprice, p_id, so_id from SaleOrderLine";
 	private static final String FIND_BY_SALEORDER_ID_Q = FIND_ALL_Q + " where so_id = ?";
 	private static final String INSERT_SALE_ORDER_LINES_Q = "insert into sale_order_line values (?, ?, ?, ?)";
@@ -18,6 +19,7 @@ public class SaleOrderLineDB implements SaleOrderLineDAO {
 	
 	private ProductDB productDB;
 	
+	//The InvoiceDB class' constructor, primarily initializes instancevariables
 	public SaleOrderLineDB() throws Exception {
 		Connection con = DBConnection.getInstance().getConnection();
 		productDB = new ProductDB();
@@ -61,18 +63,21 @@ public class SaleOrderLineDB implements SaleOrderLineDAO {
 		return res;
 	}
 
+	//Method that inserts a SaleOrderLine in the database through a PreparedStatement
 	@Override
 	public void insertSaleOrderLines(SaleOrder so) throws Exception {
 		List<SaleOrderLine> saleOrderLines = so.getSaleOrderLines();
 		try {
 			Connection con = DBConnection.getInstance().getConnection();
-			for(SaleOrderLine sol : saleOrderLines) {
+			for(SaleOrderLine sol : saleOrderLines) {				
 				insertSaleOrderLine = con.prepareStatement(INSERT_SALE_ORDER_LINES_Q);
 				
 				insertSaleOrderLine.setInt(1, sol.getQuantity());
 				insertSaleOrderLine.setDouble(2, sol.getUnitPrice());
 				insertSaleOrderLine.setInt(3, sol.getProduct().getProductID());
 				insertSaleOrderLine.setInt(4, 1); //SKAL LIGE TJEKKES IGENNEM MED ISTVAN
+				
+				insertSaleOrderLine.executeUpdate();
 			}
 			
 		} catch (Exception e) {

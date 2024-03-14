@@ -15,18 +15,18 @@ import model.SaleOrder;
 import model.SaleOrderLine;
 
 public class SaleOrderDB implements SaleOrderDAO {
+	//Instancevariables of the class SaleOrderDB
 	private static final String FIND_ALL_Q = "select date, amount, delivery_status, delivery_date, freight, c_id, e_id, sol_id from sale_order";
 	private static final String FIND_SALE_ORDER_BY_ID_Q = FIND_ALL_Q + " where sale_order_id = ?";
-	//private static final String UPDATE_Q = "update sale_order set date = ?, amount = ?, delivery_status = ?, delivery_status = ?, freight = ?, c_id = ?, e_id = ?, i_id = ?, sol_id = ? ";
 	private static final String INSERT_SALE_ORDER_Q = "insert into sale_order (date, amount, delivery_status, delivery_date, freight, c_id, e_id) values (?, ?, ?, ?, ?, ?, ?)";
 	
-	private PreparedStatement findAllPS, findSaleOrderByIdPS, updatePS, insertSaleOrderPS;
+	private PreparedStatement findAllPS, findSaleOrderByIdPS, insertSaleOrderPS;
 	
 	private CustomerDB customerDB;
 	private EmployeeDB employeeDB;
 	private SaleOrderLineDB saleOrderLineDB;
 	
-	
+	//The InvoiceDB class' constructor, primarily initializes instancevariables
 	public SaleOrderDB() throws Exception {
 		Connection con = DBConnection.getInstance().getConnection();
 		customerDB = new CustomerDB();
@@ -68,12 +68,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 		return res;
 	}
 
-	//@Override
-	//public void updateSaleOrder(SaleOrder so) throws Exception {
-	//	// TODO Auto-generated method stub
-	//	
-	//}
-
+	//Method that inserts a SaleOrder in the database through a PreparedStatement
 	@Override
 	public void insertSaleOrder(SaleOrder so) throws Exception {
 		try {

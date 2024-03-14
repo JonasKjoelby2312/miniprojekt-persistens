@@ -8,6 +8,5 @@ public interface EmployeeDAO {
 
 	List<Employee> findAllEmployees() throws Exception;
 	Employee findEmployeeByID(int id) throws Exception;
-	//void updateEmployee(Employee e) throws Exception;
 
 }

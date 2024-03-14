@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
-
 	private int productID;
 	private String name;
 	private double purchasePrice;
@@ -110,5 +109,3 @@ public class Product {
 				+ ", stocks=" + stocks + "]";
 	}
 }
-
-	

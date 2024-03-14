@@ -1,7 +1,6 @@
 package model;
 
 public class SaleOrderLine {
-	
 	private int saleOrderLineID;
 	private int quantity;
 	private double unitPrice;
@@ -30,7 +29,6 @@ public class SaleOrderLine {
 		this.unitPrice = unitPrice;
 	}
 	
-
 	public Product getProduct() {
 		return product;
 	}
@@ -39,8 +37,6 @@ public class SaleOrderLine {
 		this.product = product;
 	}
 	
-	
-
 	public int getSaleOrderLineID() {
 		return saleOrderLineID;
 	}
@@ -54,6 +50,4 @@ public class SaleOrderLine {
 		return "SaleOrderLine [saleOrderLineID=" + saleOrderLineID + ", quantity=" + quantity + ", unitPrice="
 				+ unitPrice + ", product=" + product + "]";
 	}
-
-	
 }

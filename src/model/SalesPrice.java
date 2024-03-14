@@ -3,7 +3,6 @@ package model;
 import java.time.LocalDate;
 
 public class SalesPrice {
-	
 	private int salesID;
 	private LocalDate startDate;
 	private double value;
@@ -18,17 +17,18 @@ public class SalesPrice {
 	public LocalDate getStartDate() {
 		return startDate;
 	}
+	
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+	
 	public double getValue() {
 		return value;
 	}
+	
 	public void setValue(double value) {
 		this.value = value;
 	}
-	
-	
 
 	public int getSalesID() {
 		return salesID;
@@ -42,8 +42,4 @@ public class SalesPrice {
 	public String toString() {
 		return "SalesPrice [salesID=" + salesID + ", startDate=" + startDate + ", value=" + value + "]";
 	}
-
-	
-	
-	
 }

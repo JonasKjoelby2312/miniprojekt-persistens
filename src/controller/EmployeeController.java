@@ -20,10 +20,6 @@
 		public Employee findEmployeeByID(int id) throws Exception {
 			return employeeDB.findEmployeeByID(id);
 		}
-		
-//		public void updateEmployee(Employee e) throws Exception {
-//			employeeDB.updateEmployee(e);
-//		}
 	}
 
 

@@ -14,7 +14,6 @@ public class EmployeeDB implements EmployeeDAO {
 	
 	private static final String FIND_ALL_Q = "select employee_id, name, company_position, salary from employee";
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where employee_id = ?";
-	private static final String UPDATE_Q = "update employee set name = ?, company_position = ?, salary = ? where employee_id = ?";
 	private PreparedStatement findAllPS;
 	private PreparedStatement findByIdPS;
 	private PreparedStatement updatePS;
@@ -25,7 +24,6 @@ public class EmployeeDB implements EmployeeDAO {
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
-			updatePS = con.prepareStatement(UPDATE_Q);
 		} catch (SQLException e) {
 			throw new Exception("Could not prepare qurey", e);
 		}
@@ -59,22 +57,6 @@ public class EmployeeDB implements EmployeeDAO {
 		}
 		return res;
 	}
-
-
-//	@Override
-//	public void updateEmployee(Employee emp) throws Exception {
-//		final String name = emp.getName();
-//		final String companyPosition = emp.getCompanyPosition();
-//		final int salary = emp.getSalary();
-//		try {
-//			updatePS.setString(1, companyPosition);
-//			updatePS.setString(2, companyPosition);
-//			updatePS.setInt(3, salary);
-//		} catch(SQLException e) {
-//			throw new Exception("Could not update employee on: " + emp, e );
-//			
-//		}
-//	}
 	
 	private Employee buildObject(ResultSet rs, boolean fullAssociation) throws SQLException {
 		Employee res = null;
@@ -88,7 +70,6 @@ public class EmployeeDB implements EmployeeDAO {
 		}
 		return res;
 	}
-	
 	
 	private List<Employee> buildObjects(ResultSet rs, boolean fullAssociation) throws SQLException {
 		ArrayList<Employee> res = new ArrayList<>();

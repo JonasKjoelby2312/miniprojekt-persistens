@@ -20,6 +20,4 @@ public class ProductController {
 	public Product findProductByID(int id) throws Exception {
 		return productDB.findProductByID(id, false);
 	}
-	
-	//Update skal måske ikke tilføjes
 }

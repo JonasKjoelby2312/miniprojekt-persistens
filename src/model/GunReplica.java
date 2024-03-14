@@ -16,8 +16,6 @@ public class GunReplica extends Product {
 		this.rentPrice = rentPrice;
 	}
 
-
-
 	public String getCalbire() {
 		return calbire;
 	}

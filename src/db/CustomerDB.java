@@ -86,21 +86,4 @@ public class CustomerDB implements CustomerDAO {
 
 		return c;
 	}
-
-	/*
-	 * @Override public void updateCustomer(Customer c) throws Exception {
-	 * 
-	 * try { updatePS.setString(1, c.getName()); updatePS.setString(2,
-	 * c.getAddress()); updatePS.setInt(3, c.getZipcode()); updatePS.setString(5,
-	 * c.getPhoneNo()); updatePS.setString(6, c.getEmail());
-	 * updatePS.executeUpdate();
-	 * 
-	 * } catch (SQLException e) { throw new Exception("Could not update customer",
-	 * e); }
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
-
 	}

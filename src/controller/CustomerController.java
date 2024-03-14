@@ -23,8 +23,4 @@ public class CustomerController {
 	public Customer findCustomerByID(int id) throws Exception {
 		return customerDB.findCustomerByID(id);
 	}
-	
-//	public Customer updateCustomer(Customer c) throws Exception {
-//		return customerDB.updateCustomer();
-//	}
 }

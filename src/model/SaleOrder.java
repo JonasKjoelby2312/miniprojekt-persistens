@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaleOrder {
-	
 	private int saleOrderID;
 	private LocalDate date;
 	private Employee employee;
@@ -100,7 +99,6 @@ public class SaleOrder {
 		this.freight = freight;
 	}
 	
-
 	public void setSaleOrderLines(List<SaleOrderLine> saleOrderLines) {
 		this.saleOrderLines = saleOrderLines;
 	}
@@ -144,7 +142,4 @@ public class SaleOrder {
 				+ deliveryDate + ", freight=" + freight + ", saleOrderLines=" + saleOrderLines + ", invoices="
 				+ invoices + "]";
 	}
-
-	
-	
 }
