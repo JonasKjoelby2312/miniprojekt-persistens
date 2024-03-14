@@ -62,6 +62,7 @@ public class SaleOrderController {
 				LocalDate.now(), currentSaleOrder.getAmount() + currentSaleOrder.getFreight()));
 		currentSaleOrder = null;
 		saleOrderDB.insertSaleOrder(currentSaleOrder);
+		System.out.println(currentSaleOrder);
 		res = true;
 		return res;
 	}
