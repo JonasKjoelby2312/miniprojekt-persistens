@@ -47,7 +47,7 @@ public class SaleOrderController {
 		return res;
 	}
 	
-	public boolean completeSaleOrder() {
+	public boolean completeSaleOrder() throws Exception {
 		boolean res = false;
 		currentSaleOrder.setDate(LocalDate.now());
 		currentSaleOrder.setDeliveryDate(LocalDate.now().plusMonths(1));
@@ -61,6 +61,7 @@ public class SaleOrderController {
 		currentSaleOrder.addInvoice(new Invoice(currentSaleOrder.getCustomer().getCustomerID() + (int) Instant.now().getEpochSecond(), 
 				LocalDate.now(), currentSaleOrder.getAmount() + currentSaleOrder.getFreight()));
 		currentSaleOrder = null;
+		saleOrderDB.insertSaleOrder(currentSaleOrder);
 		res = true;
 		return res;
 	}
