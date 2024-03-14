@@ -47,17 +47,17 @@ public class EmployeeDB implements EmployeeDAO {
 
 	@Override
 	public Employee findEmployeeByID(int id) throws Exception {
+		Employee res = null;
 		ResultSet rs;
 		try {
 			rs = findByIdPS.executeQuery();
-			Employee e = null;
 			if(rs.next()) {
-				e = buildObject(rs, false);
+				res = buildObject(rs, false);
 			}
-			return null;
 		} catch(SQLException e) {
 			throw new Exception("Could not find employee by ID", e);
 		}
+		return res;
 	}
 
 
