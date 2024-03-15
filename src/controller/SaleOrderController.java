@@ -11,6 +11,7 @@ import db.SaleOrderDAO;
 import db.SaleOrderDB;
 import db.SaleOrderLineDAO;
 import db.SaleOrderLineDB;
+import model.Club;
 import model.Customer;
 import model.DeliveryStatus;
 import model.Employee;
@@ -70,10 +71,10 @@ public class SaleOrderController {
 			currentSaleOrder.setDeliveryDate(LocalDate.now().plusMonths(1));
 			currentSaleOrder.setDeliveryStatus(DeliveryStatus.ONGOING);
 			currentSaleOrder.setAmount(currentSaleOrder.calculateTotal());
-			if(currentSaleOrder.getCustomer() instanceof Customer) {
-				currentSaleOrder.setFreight(45d);
-			} else {
+			if(currentSaleOrder.getCustomer() instanceof Club || currentSaleOrder.getAmount() > 2500d) {
 				currentSaleOrder.setFreight(0d);
+			} else {
+				currentSaleOrder.setFreight(45d);
 			}
 			currentSaleOrder.addInvoice(new Invoice(currentSaleOrder.getCustomer().getCustomerID() + (int) Instant.now().getEpochSecond(), 
 					LocalDate.now(), currentSaleOrder.getAmount() + currentSaleOrder.getFreight()));
