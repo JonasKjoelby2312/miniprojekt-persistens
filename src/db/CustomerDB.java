@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Club;
 import model.Customer;
 
 public class CustomerDB implements CustomerDAO {
@@ -81,6 +82,15 @@ public class CustomerDB implements CustomerDAO {
 						rs.getString("email"));
 			} else {
 				// Spørgsmål ift club og hvordan vi bruger subklassen
+				c = new Club(
+						rs.getInt("customer_id"),
+						rs.getString("name"), 
+						rs.getString("address"), 
+						rs.getInt("zipcode"),
+						rs.getString("phone_no"), 
+						rs.getString("email"),
+						rs.getString("cvr")
+						);
 			}
 		}
 
