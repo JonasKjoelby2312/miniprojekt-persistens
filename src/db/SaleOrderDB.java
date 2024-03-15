@@ -16,7 +16,7 @@ import model.SaleOrderLine;
 
 public class SaleOrderDB implements SaleOrderDAO {
 	//Instancevariables of the class SaleOrderDB
-	private static final String FIND_ALL_Q = "select date, amount, delivery_status, delivery_date, freight, c_id, e_id from sale_order";
+	private static final String FIND_ALL_Q = "select sale_order_id, date, amount, delivery_status, delivery_date, freight, c_id, e_id from sale_order";
 	private static final String FIND_SALE_ORDER_BY_ID_Q = FIND_ALL_Q + " where sale_order_id = ?";
 	private static final String INSERT_SALE_ORDER_Q = "insert into sale_order (date, amount, delivery_status, delivery_date, freight, c_id, e_id) values (?, ?, ?, ?, ?, ?, ?)";
 	
@@ -36,7 +36,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findSaleOrderByIdPS = con.prepareStatement(FIND_SALE_ORDER_BY_ID_Q);
-			insertSaleOrderPS = con.prepareStatement(INSERT_SALE_ORDER_Q);
+			insertSaleOrderPS = con.prepareStatement(INSERT_SALE_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
 			throw new Exception("Could not prepare statements");
 		}
@@ -79,7 +79,9 @@ public class SaleOrderDB implements SaleOrderDAO {
 			insertSaleOrderPS.setInt(6,so.getCustomer().getCustomerID()); 
 			insertSaleOrderPS.setInt(7,so.getEmployee().getEmployeeID());
 			
-			insertSaleOrderPS.executeUpdate();
+			
+			int id = DBConnection.getInstance().executeInsertWithIdentity(insertSaleOrderPS);
+			so.setSaleOrderID(id);
             	
 		} catch (Exception e) {
 			throw new Exception("Could not insert SaleOrder in DB");
