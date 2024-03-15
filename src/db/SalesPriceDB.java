@@ -24,7 +24,7 @@ public class SalesPriceDB implements SalesPriceDAO {
 	}
 
 	@Override
-	public List<SalesPrice> findSalesPriceByID(int id) throws Exception {
+	public List<SalesPrice> findSalesPricesByID(int id) throws Exception {
 		List<SalesPrice> res = new ArrayList<>();
 		findAllSalesPricesByID.setInt(1, id);
 		ResultSet rs = findAllSalesPricesByID.executeQuery();

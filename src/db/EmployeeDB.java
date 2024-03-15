@@ -26,8 +26,6 @@ public class EmployeeDB implements EmployeeDAO {
 		} catch (SQLException e) {
 			throw new Exception("Could not prepare qurey", e);
 		}
-
-
 	}
 
 	@Override
@@ -35,7 +33,7 @@ public class EmployeeDB implements EmployeeDAO {
 		ResultSet rs;
 		try {
 			rs = findAllPS.executeQuery();
-			List<Employee> res = buildObjects(rs, false);
+			List<Employee> res = buildObjects(rs);
 			return res;
 		} catch(SQLException e) {
 			throw new Exception("Could not retrive all employees", e);
@@ -50,14 +48,14 @@ public class EmployeeDB implements EmployeeDAO {
 		try {
 			findByIdPS.setInt(1, id);
 			rs = findByIdPS.executeQuery();
-			res = buildObject(rs, false);
+			res = buildObject(rs);
 		} catch(SQLException e) {
 			throw new Exception("Could not find employee by ID", e);
 		}
 		return res;
 	}
 	
-	private Employee buildObject(ResultSet rs, boolean fullAssociation) throws SQLException {
+	private Employee buildObject(ResultSet rs) throws SQLException {
 		Employee res = null;
 		if(rs.next()) {
 			res = new Employee(
@@ -70,12 +68,12 @@ public class EmployeeDB implements EmployeeDAO {
 		return res;
 	}
 	
-	private List<Employee> buildObjects(ResultSet rs, boolean fullAssociation) throws SQLException {
+	private List<Employee> buildObjects(ResultSet rs) throws SQLException {
 		ArrayList<Employee> res = new ArrayList<>();
-		Employee e = buildObject(rs, false);
+		Employee e = buildObject(rs);
 		while (e != null) {
 			res.add(e);
-			e = buildObject(rs, false);
+			e = buildObject(rs);
 		}
 		return res;
 	}
