@@ -8,16 +8,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import controller.CustomerController;
-import controller.EmployeeController;
 import controller.SaleOrderController;
 import model.SaleOrder;
 
-
-class TestSaleOrderController {
+class TestNoFreightOnOrder {
+	
 	private SaleOrderController soc;
-	private CustomerController cc;
-	private EmployeeController ec;
+	
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -30,8 +27,6 @@ class TestSaleOrderController {
 	@BeforeEach
 	void setUp() throws Exception {
 		soc = new SaleOrderController();
-		cc = new CustomerController();
-		ec = new EmployeeController();
 	}
 
 	@AfterEach
@@ -39,12 +34,14 @@ class TestSaleOrderController {
 	}
 
 	@Test
-	void testRegisterSaleOrder() throws Exception {
-		SaleOrder res = soc.registerOrder(1, 1);
+	void testNoFreightOnOrder() throws Exception {
+		SaleOrder res = soc.registerOrder(1, 3);
 		assertNotNull(res);
-		assertEquals(res.getCustomer(), cc.findCustomerByID(1));
-		assertEquals(res.getEmployee(), ec.findEmployeeByID(1));
 		
+		soc.addProduct(1, 100);
+		soc.completeSaleOrder();
+		
+		assertSame(0.0, res.getFreight());
 	}
 
 }

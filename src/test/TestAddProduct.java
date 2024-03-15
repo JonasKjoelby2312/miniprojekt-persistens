@@ -13,11 +13,11 @@ import controller.EmployeeController;
 import controller.SaleOrderController;
 import model.SaleOrder;
 
-
-class TestSaleOrderController {
+class TestAddProduct {
+	
 	private SaleOrderController soc;
-	private CustomerController cc;
 	private EmployeeController ec;
+	private CustomerController cc;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -30,8 +30,9 @@ class TestSaleOrderController {
 	@BeforeEach
 	void setUp() throws Exception {
 		soc = new SaleOrderController();
-		cc = new CustomerController();
 		ec = new EmployeeController();
+		cc = new CustomerController();
+		
 	}
 
 	@AfterEach
@@ -39,11 +40,13 @@ class TestSaleOrderController {
 	}
 
 	@Test
-	void testRegisterSaleOrder() throws Exception {
+	void testAddProduct() throws Exception {
 		SaleOrder res = soc.registerOrder(1, 1);
 		assertNotNull(res);
-		assertEquals(res.getCustomer(), cc.findCustomerByID(1));
-		assertEquals(res.getEmployee(), ec.findEmployeeByID(1));
+		
+		assertSame(0, res.getSaleOrderLines().size());
+		soc.addProduct(1, 2);
+		assertSame(1, res.getSaleOrderLines().size());
 		
 	}
 
