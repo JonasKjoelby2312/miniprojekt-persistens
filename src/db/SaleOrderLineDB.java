@@ -15,7 +15,7 @@ public class SaleOrderLineDB implements SaleOrderLineDAO {
 	private static final String FIND_BY_SALEORDER_ID_Q = FIND_ALL_Q + " where so_id = ?";
 	private static final String INSERT_SALE_ORDER_LINES_Q = "insert into sale_order_line values (?, ?, ?, ?)";
 	private PreparedStatement findBySaleOrderIDPS;
-	private PreparedStatement insertSaleOrderLine;
+	private PreparedStatement insertSaleOrderLinePS;
 	
 	private ProductDB productDB;
 	
@@ -68,14 +68,14 @@ public class SaleOrderLineDB implements SaleOrderLineDAO {
 		try {
 			Connection con = DBConnection.getInstance().getConnection();
 			for(SaleOrderLine sol : saleOrderLines) {				
-				insertSaleOrderLine = con.prepareStatement(INSERT_SALE_ORDER_LINES_Q);
+				insertSaleOrderLinePS = con.prepareStatement(INSERT_SALE_ORDER_LINES_Q);
 				
-				insertSaleOrderLine.setInt(1, sol.getQuantity());
-				insertSaleOrderLine.setDouble(2, sol.getUnitPrice());
-				insertSaleOrderLine.setInt(3, sol.getProduct().getProductID());
-				insertSaleOrderLine.setInt(4, so.getSaleOrderID()); //SKAL LIGE TJEKKES IGENNEM MED ISTVAN
+				insertSaleOrderLinePS.setInt(1, sol.getQuantity());
+				insertSaleOrderLinePS.setDouble(2, sol.getUnitPrice());
+				insertSaleOrderLinePS.setInt(3, sol.getProduct().getProductID());
+				insertSaleOrderLinePS.setInt(4, so.getSaleOrderID()); //SKAL LIGE TJEKKES IGENNEM MED ISTVAN
 				
-				insertSaleOrderLine.executeUpdate();
+				insertSaleOrderLinePS.executeUpdate();
 			}
 			
 		} catch (Exception e) {

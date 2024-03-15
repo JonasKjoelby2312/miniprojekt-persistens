@@ -20,7 +20,9 @@ public class SaleOrderDB implements SaleOrderDAO {
 	private static final String FIND_SALE_ORDER_BY_ID_Q = FIND_ALL_Q + " where sale_order_id = ?";
 	private static final String INSERT_SALE_ORDER_Q = "insert into sale_order (date, amount, delivery_status, delivery_date, freight, c_id, e_id) values (?, ?, ?, ?, ?, ?, ?)";
 	
-	private PreparedStatement findAllPS, findSaleOrderByIdPS, insertSaleOrderPS;
+	private PreparedStatement findAllPS;
+	private PreparedStatement findSaleOrderByIDPS;
+	private PreparedStatement insertSaleOrderPS;
 	
 	private CustomerDB customerDB;
 	private EmployeeDB employeeDB;
@@ -35,7 +37,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 		
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
-			findSaleOrderByIdPS = con.prepareStatement(FIND_SALE_ORDER_BY_ID_Q);
+			findSaleOrderByIDPS = con.prepareStatement(FIND_SALE_ORDER_BY_ID_Q);
 			insertSaleOrderPS = con.prepareStatement(INSERT_SALE_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
 			throw new Exception("Could not prepare statements");
@@ -57,9 +59,9 @@ public class SaleOrderDB implements SaleOrderDAO {
 	@Override
 	public SaleOrder findSaleOrderByID(int id) throws Exception {
 		SaleOrder res = null;
-		findSaleOrderByIdPS.setInt(1, id);
+		findSaleOrderByIDPS.setInt(1, id);
 		try {
-			ResultSet rs = findSaleOrderByIdPS.executeQuery();
+			ResultSet rs = findSaleOrderByIDPS.executeQuery();
 			res = buildObject(rs);
 		} catch (Exception e) {
 			throw new Exception("Could not find SaleOrder by ID: " + id, e);

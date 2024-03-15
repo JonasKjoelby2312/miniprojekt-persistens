@@ -107,7 +107,7 @@ public class SaleOrder {
 		return new ArrayList<>(saleOrderLines);
 	}
 
-	public void addSaleOrderLine(SaleOrderLine sol) {//dkd
+	public void addSaleOrderLine(SaleOrderLine sol) {
 		if(sol != null) {
 			saleOrderLines.add(sol);
 		}
