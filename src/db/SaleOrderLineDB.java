@@ -55,9 +55,7 @@ public class SaleOrderLineDB implements SaleOrderLineDAO {
 		if(rs.next()) {
 			res = new SaleOrderLine(
 					productDB.findProductByID(rs.getInt("p_id"), false),
-					//rs.getInt("sale_order_line_id"),
 					rs.getInt("quantity")
-					//rs.getDouble("unitprice"),
 					);
 		}
 		return res;
