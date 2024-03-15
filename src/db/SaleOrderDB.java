@@ -35,8 +35,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 		
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
-			findSaleOrderByIdPS = con.prepareStatement(FIND_ALL_Q);
-			//updatePS = con.prepareStatement(UPDATE_Q);
+			findSaleOrderByIdPS = con.prepareStatement(FIND_SALE_ORDER_BY_ID_Q);
 			insertSaleOrderPS = con.prepareStatement(INSERT_SALE_ORDER_Q);
 		} catch (SQLException e) {
 			throw new Exception("Could not prepare statements");
