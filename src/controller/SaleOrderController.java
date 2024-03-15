@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.InvoiceDAO;
 import db.InvoiceDB;
 import db.SaleOrderDAO;
 import db.SaleOrderDB;
@@ -25,7 +26,7 @@ public class SaleOrderController {
 	private EmployeeController eCtrl;
 	private SaleOrderDAO saleOrderDB;
 	private SaleOrderLineDAO saleOrderLineDB;
-	private InvoiceDB invoiceDB;
+	private InvoiceDAO invoiceDB;
 	private SaleOrder currentSaleOrder;
 	
 	//Contructor of SaleOrderController, assigning values to instancevariables
@@ -35,6 +36,7 @@ public class SaleOrderController {
 		eCtrl = new EmployeeController();
 		saleOrderDB = new SaleOrderDB();
 		saleOrderLineDB = new SaleOrderLineDB();
+		invoiceDB = new InvoiceDB();
 	}
 	
 	//This method creates a new SaleOrder object with ID's from an employee and costumer, and saves it in an instancevariable
