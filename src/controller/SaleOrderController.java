@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.InvoiceDB;
 import db.SaleOrderDAO;
 import db.SaleOrderDB;
 import db.SaleOrderLineDAO;
@@ -24,6 +25,7 @@ public class SaleOrderController {
 	private EmployeeController eCtrl;
 	private SaleOrderDAO saleOrderDB;
 	private SaleOrderLineDAO saleOrderLineDB;
+	private InvoiceDB invoiceDB;
 	private SaleOrder currentSaleOrder;
 	
 	//Contructor of SaleOrderController, assigning values to instancevariables
@@ -75,6 +77,7 @@ public class SaleOrderController {
 					LocalDate.now(), currentSaleOrder.getAmount() + currentSaleOrder.getFreight()));
 			saleOrderDB.insertSaleOrder(currentSaleOrder);
 			saleOrderLineDB.insertSaleOrderLines(currentSaleOrder);
+			invoiceDB.insertInvoice(currentSaleOrder);
 			
 			currentSaleOrder = null;
 			res = true;
