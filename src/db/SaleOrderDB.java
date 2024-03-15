@@ -106,6 +106,7 @@ public class SaleOrderDB implements SaleOrderDAO {
 						customerDB.findCustomerByID(rs.getInt("c_id"))
 						);
 				
+				res.setSaleOrderID(rs.getInt("sale_order_id"));
 				res.setDate(rs.getDate("date").toLocalDate());
 				res.setAmount(rs.getDouble("amount"));
 				res.setDeliveryStatus(DeliveryStatus.valueOf(rs.getString("delivery_status")));
