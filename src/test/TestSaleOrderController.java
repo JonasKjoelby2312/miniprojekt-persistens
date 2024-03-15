@@ -42,8 +42,8 @@ class TestSaleOrderController {
 	void testRegisterSaleOrder() throws Exception {
 		SaleOrder res = soc.registerOrder(1, 1);
 		assertNotNull(res);
-		assertEquals(res.getCustomer(), cc.findCustomerByID(1));
-		assertEquals(res.getEmployee(), ec.findEmployeeByID(1));
+		assertEquals(res.getCustomer().getCustomerID(), 1);
+		assertEquals(res.getEmployee().getEmployeeID(), 1);
 		
 	}
 
