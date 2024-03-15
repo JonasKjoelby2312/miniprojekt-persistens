@@ -29,7 +29,7 @@ public class InvoiceDB implements InvoiceDAO{
 			insertInvoicePS.setInt(1, i.getInvoiceNo());
 			insertInvoicePS.setDate(2, Date.valueOf(i.getPaymentDate()));
 			insertInvoicePS.setDouble(3, i.getAmount());
-			insertInvoicePS.setInt(4, 1);// ISTVAAANNNN
+			insertInvoicePS.setInt(4, so.getSaleOrderID());
 			
 			insertInvoicePS.executeUpdate();
 		}
