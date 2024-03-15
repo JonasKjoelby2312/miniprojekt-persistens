@@ -16,7 +16,6 @@ public class EmployeeDB implements EmployeeDAO {
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " where employee_id = ?";
 	private PreparedStatement findAllPS;
 	private PreparedStatement findByIdPS;
-	private PreparedStatement updatePS;
 	
 	public EmployeeDB() throws Exception {
 

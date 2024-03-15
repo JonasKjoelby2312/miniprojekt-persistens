@@ -17,14 +17,12 @@ public class CustomerDB implements CustomerDAO {
 	private static final String UPDATE_Q = "update customers set name = ?, email = ?, address = ?, cvr = ?, zipcode = ?, phone_no = ? where customer_id = ?";
 	private PreparedStatement findAllPS;
 	private PreparedStatement findByIDPS;
-	private PreparedStatement updatePS;
 
 	public CustomerDB() throws Exception {
 		Connection con = DBConnection.getInstance().getConnection();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findByIDPS = con.prepareStatement(FIND_BY_ID_Q);
-			updatePS = con.prepareStatement(UPDATE_Q);
 
 		} catch (SQLException e) {
 			throw new Exception("Cannot prepare query at the moment", e);
@@ -36,40 +34,37 @@ public class CustomerDB implements CustomerDAO {
 		List<Customer> res = new ArrayList<>();
 		try {
 			ResultSet rs = findAllPS.executeQuery();
-			res = buildObjects(rs, false);
+			res = buildObjects(rs);
 		} catch (SQLException e) {
 			throw new Exception("Could not find customers", e);
 		}
 		return res;
 	}
-
-	private List<Customer> buildObjects(ResultSet rs, boolean fullAssociation) throws SQLException {
-		ArrayList<Customer> res = new ArrayList<>();
-		Customer c = buildObject(rs, false);
-		while (c != null) {
-			res.add(c);
-			c = buildObject(rs, false);
-		}
-		return res;
-	}
-
 	
-
 	@Override
 	public Customer findCustomerByID(int id) throws Exception {
 		Customer res = null;
 		try {
 			findByIDPS.setInt(1, id);
 			ResultSet rs = findByIDPS.executeQuery();
-			res = buildObject(rs, false);
+			res = buildObject(rs);
 		} catch (SQLException e) {
 			throw new Exception("Could not find by ID", e);
 		}
-
 		return res;
 	}
 
-	private Customer buildObject(ResultSet rs, boolean fullAssociation) throws SQLException {
+	private List<Customer> buildObjects(ResultSet rs) throws SQLException {
+		ArrayList<Customer> res = new ArrayList<>();
+		Customer c = buildObject(rs);
+		while (c != null) {
+			res.add(c);
+			c = buildObject(rs);
+		}
+		return res;
+	}
+
+	private Customer buildObject(ResultSet rs) throws SQLException {
 		Customer c = null;
 		if (rs.next()) {
 			if (rs.getString("cvr") == null) {
