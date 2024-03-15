@@ -90,7 +90,9 @@ public class SaleOrderController {
 	//This method calls upon another method of the same name, on the saleOrderDB class. It returns a single SaleOrderObject matching the id of the input parameter
 	public SaleOrder findSaleOrderByID(int id) throws Exception {
 		SaleOrder res = null;
-		res = saleOrderDB.findSaleOrderByID(id);
+		if(id > 0) {
+			res = saleOrderDB.findSaleOrderByID(id);
+		}
 		return res;
 	}
 }
